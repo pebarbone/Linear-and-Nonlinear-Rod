@@ -1,0 +1,530 @@
+\documentclass[12pt,american]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{textcomp}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{babel}
+\usepackage{tcolorbox}
+
+%---------------------------------------------------------
+%  Toggle to label equations 
+%
+\def \plabel#1 {\label{#1} }
+% \def \plabel#1 {\label{#1} \qquad{#1} }
+%
+%---------------------------------------------------------
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+
+\def \be{\mbox{\boldmath{$e$}}}
+\def \u{\mbox{\boldmath{$u$}}}
+\def \bx{\mbox{\boldmath{$x$}}}
+\def \ep{\epsilon}
+\def \sigo{\sigma_{o}}
+\def \pie{\Pi_{Elastic}}
+\def \pit{\Pi_{Total}}
+\def \cS{{\cal{S}}}
+\def \cV{{\cal{V}}}
+\def \us{{u^{*}}}
+
+\begin{document}
+
+\title{Nonlinear elastic rod}
+
+
+\author{Andre, Paul, Elise}
+
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+
+\section{Introduction}
+
+We derive equations of equilibrium for uniaxial deformation of an elastic rod.  
+We approach the problem from three perspectives:  strong form (direct equilibrium equation), weak form, 
+and minimization of 
+the total potential energy.  
+
+We eventually consider the material behavior of the rod as nonlinear, but assume the strains 
+are sufficiently small to neglect geometric nonlinearity.  To begin with, however, 
+we start with linear elastic material assumption. 
+
+\section{Strong formulation}
+\subsection{Fundamental equations}
+
+Here we let $u(x)$ represent the axial displacement of a particle whose initial position is $x$, 
+$\ep(x)$ is the axial strain in the rod at location $x$, and $\sigma(x)$ is the stress acting on the 
+cross section of the rod at 
+location $x$.  $f(x)$ is a body force (i.e.\ a force per unit volume) assumed to be known in the rod.  
+Here we focus on the special case that the rod has uniform cross sectional area, $A$, and zero traction along 
+its length.  
+
+\bigskip
+\noindent
+{\em Equilibrium equation:}
+\beq
+\frac{d\sigma}{dx}  + f = 0 
+\plabel{equil}
+\eeq
+%{\em Linear constitutive equation:}
+%\beq
+%\sigma = E \epsilon
+%\plabel{linear-sig-ep}
+%\eeq
+{\em Constitutive equation:}
+\beq
+\sigma = \Sigma(\ep) = E \ep 
+\plabel{sig-ep}
+\eeq
+{\em Kinematics equation:}
+\beq
+\ep = \frac{d u}{dx} 
+\plabel{u-ep}
+\eeq
+
+\begin{tcolorbox}[title= Exercise]
+Derive equation (\ref{equil}). 
+\end{tcolorbox}
+
+\subsection{An example $1D$ boundary value problem} 
+
+We now consider a rod that has length $L$.  It is fixed at $x=0$ and is acted upon at $x=L$ by a force $P$.  
+We let $\sigo = P/A$.   A body force $f(x)$ is known.    Therefore, in addition to equations (\ref{equil}-\ref{u-ep}), 
+we need to add the boundary conditions: 
+\bea
+u(0) &=& u_o
+\plabel{bc1} \\ 
+\sigma(L) &=& P/A = \sigo .
+\plabel{bc2}
+\eea 
+
+\begin{tcolorbox}[title= Strong Form 1]{
+% \fbox{
+Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
+find 
+$u(x)$, $\ep(x)$, $\sigma(x)$ that satisfy:
+
+\bea
+\frac{d\sigma}{dx}  + f &=& 0 \\  
+\sigma &=& E \ep \\ 
+\ep &=& \frac{d u}{dx} \\
+u(0) &=& u_o \\ 
+\sigma(L) &=& \sigo .
+\eea 
+}
+\end{tcolorbox}
+
+This box summarizes all our fundamental equations and boundary conditions.  The unknowns are $u, \ep, \sigma$.  
+To solve for these unknowns, we have two first-order odes, and one algebraic equation (\ref{sig-ep}).  
+If we were to set about to solving this problem, the first thing that we might do is use equations (\ref{sig-ep}) 
+and (\ref{u-ep}) to eliminate the unknowns $\sigma$ and $\ep$ in favor of $u(x)$.  This would then give us: 
+
+
+\begin{tcolorbox}[title= Strong Form 2]{
+% \fbox{
+Given $u_o$, $\sigo$, $E$, and $f(x)$,  for $0 < x < L$, 
+find 
+$u(x)$, that satisfies:
+
+\bea
+\frac{d}{dx} \left(E \frac{du}{dx} \right) + f &=& 0
+\plabel{11} \\  
+%\sigma &=& \Sigma(\ep) \\ 
+%\ep &=& \frac{d u}{dx} \\
+u(0) &=& u_o 
+\plabel{12} \\  
+\left. E \frac{du}{dx} \right|_{x=L} &=& \sigo .
+\plabel{13} 
+\eea 
+}
+\end{tcolorbox}
+Here we have just the one unknown function, $u(x)$ and one differential equation.  
+
+These problems are equivalent, but they are different.  
+One has three unknown functions; the other one unknown function.
+One has two first order differential equations; the other had one second order differential equation. 
+One yields all quantities of potential interest (i.e. $u, \ep, \sigma$); the other yields only $u$.  
+If one uses the Strong Form 2 and wishes to know the stress, then the stress must be computed as a 
+{\em post-process}.  Generally speaking, if one knows any of the functions, $u, \ep, \sigma$, then 
+the problem is considered to be solved.  The others can be evaluated {\em relatively} 
+easily from (\ref{sig-ep}) and/or (\ref{u-ep}).  
+
+\section{Minimum potential energy}
+
+Here we reformulate the problem using the principle of minimum potential energy.  
+
+\subsection{Fundamental equations} 
+
+\subsubsection{Stored elastic potential energy}
+
+Let $W$ denote the elastic energy density, i.e.\ the energy per unit volume, contained in a deformed solid.  
+(Normally we think of $W = W(\ep)$ to be a pure function of strain (i.e.\ it depends {\em only} on strain).  
+One definition of an elastic material is that $W = W(\ep)$.)  For a linear elastic material in 
+uniaxial tension, $W = \frac{1}{2} E \ep^2$. 
+
+\bigskip
+\noindent
+{\em Elastic potential energy:}
+\bea
+\pie[u] &=& \int_V W(\ep(u)) dV  \\ 
+	&=& \int_0^L W(\ep(u)) A\, dx 
+\plabel{pie}
+\eea
+Note that in (\ref{pie}), we think of $\ep$ as determined by $u(x)$ through equation (\ref{u-ep}).  
+
+\subsubsection{Work done by loading} 
+
+The sum of all work done by all externally applied loads is: 
+
+\bigskip
+\noindent
+{\em External work:}
+\bea
+\ell[u] &=& \int_V f(x) \cdot u(x) dV  + P \cdot u(L)  \\
+	&=& \int_0^L f(x) \cdot u(x) A\, dx  + P \cdot u(L) 
+\plabel{ell}
+\eea
+Again, 
+Note that here $V = (0,L) \times A$, and $dV = A\, dx$. 
+The work done by these loads comes at the loss of some energy.  We shall assume that this work 
+represents energy lost by some conservative loading machine, so that 
+\beq
+\Pi_{Load}[u] = - \ell[u]. 
+\eeq
+That is, work done on the rod is the energy lost by $\Pi_{Load}$.  
+
+\subsubsection{Total potential energy}
+
+The total potential energy is, therefore, $\pit = \pie + \Pi_{Load}$, or 
+
+\bigskip
+\noindent
+{\em Total potential energy:}  
+\bea
+\pit[u] &=& \pie[u] - \ell[u] \\ 
+	&=& \int_0^L W(\ep(u))  - f(x) \cdot u(x) A\, dx  - P \cdot u(L) 
+\eea
+
+\subsection{Principle of minimum potential energy} 
+
+\begin{tcolorbox}[title= Principle of minimum potential energy - wordy]
+Of all admissible functions, $u(x)$, the equilibrium 
+displacement field is given by the $u(x)$ that minimizes $\pit[u]$.
+\end{tcolorbox}
+
+\subsubsection{Admissible displacement fields} 
+
+Admissible displacement fields must satisfy an appriate degree of continuity and 
+satisfy our {\em essential} boundary conditions.  In our example boundary value 
+problem, the essential boundary condition is (\ref{bc1}).  The appropriate degree of 
+continuity in $1D$ is that the functions be at least continuous.  
+% An alternative way 
+% of prescribing that the function, $u(x)$ be continuous in $1D$ is to require: 
+% \beq
+% \int_0^L \left(\frac{du}{dx}\right)^2 \dx < \infty. 
+% \eeq
+The set of continuous functions defined for $0 \le x \le L$ 
+is denoted $C^0[0,L]$.  
+To say that 
+$u(x)$ is continuous is equivalent to saying that 
+$u(x)$ is in the set $C^0$, or in math-speak, $u(x) \in C^0[0,L]$. 
+\footnote{The superscript $0$ indicates how many derivatives of 
+$u(x)$ are required to be continuous.  Thus $C^3[0,L]$ is the set of all functions 
+whose third derivative (and therefore second and first and zeroth) 
+is continuous between $0 \le x \le L$.}
+
+Therefore we introduce the set $\cS$ of admissible displacement fields, $u(x)$: 
+\beq
+\cS = \left\{ u(x) | u(x)\in C^0[0,L];\  u(0) = u_o. \right\}
+\plabel{S}
+\eeq
+This reads, ``$\cS$ is the set of all $u(x)$ such that $u(x)$ is continuous and $u(0) = 0$.''
+
+
+\begin{tcolorbox}[title= Principle of minimum potential energy - mathy]
+The equilibrium displacement field, $\us$, is the minimizer over all 
+$u(x) \in \cS$ of: 
+\bea 
+\pit[u] &=& \int_0^L \frac{1}{2} E \left(\frac{du}{dx} \right)^2  - f(x) \cdot u(x) A\, dx  - P \cdot u(L),  
+\plabel{pit}
+\\ 
+\mbox{where} \qquad 
+\cS &=& \left\{ u(x) | u(x)\in C^0[0,L];\  u(0) = u_o. \right\}
+\eea
+\end{tcolorbox}
+
+
+\subsubsection{Admissible variation fields} 
+
+Pick any $u(x) \in \cS$.  Then $v(x)$ is an {\em admissible variation} 
+if (and only if) $u(x) + v(x) \in \cS$.  We let $\cV$ denote the set of all 
+admissible variations.  
+
+\begin{tcolorbox}[title=Exercise:]
+Use the definition given to show that 
+\beq
+\cV = \left\{ v(x) | v(x)\in C^0[0,L];\  v(0) = u_o. \right\}
+\plabel{V}
+\eeq
+\end{tcolorbox}
+
+
+\subsection{Euler Lagrange Equations:  The connection between the strong form 
+and the principle of minimum potential energy} 
+
+We let $\us\in \cS$ denote the minimizer of $\pit[u]$.  
+Our goal here is to show that $\us$ satisfies Strong Form 2.  
+
+We begin by choosing an arbitrary function $v(x) \in \cV$.  
+Once we pick that function, it's picked.  It doesn't change.  
+To say that it's arbitrary means that it doesn't matter which one we pick, 
+but we have to pick one.  In this example, we can imagine it's $v(x) = 8x$.  
+
+We next define the function $F(\alpha)$, where $\alpha$ is an arbitrary 
+scalar, and 
+\beq
+F(\alpha) = \pit[\us + \alpha v]. 
+\plabel{100}
+\eeq
+We note that since $\us$ minimizes $\pit[u]$, 
+then $F(\alpha)$ is minimum at $\alpha = 0$: 
+\beq
+F(\alpha) = \pit[\us + \alpha v] \ge \pit[\us ]  = F(0). 
+\plabel{101}
+\eeq
+Since $\alpha =0$ is a minimum of $F(\alpha)$, then the slope of $F$ is zero at that 
+point.  Hence 
+$\left.\frac{dF}{d\alpha}\right|_{\alpha = 0} = 0$.  Computing gives us: 
+\bea
+\left.\frac{dF}{d\alpha}\right|_{\alpha = 0} 
+ 	&=&
+\left.\frac{d}{d\alpha}\right|_{\alpha = 0} 
+\int_0^L \frac{1}{2} E 
+\left(\frac{d\us}{dx}  
++ \alpha \frac{dv}{dx}  \right)^2  
+- f(x) \cdot (\us + \alpha v(x)) A\, dx  
+% \nonumber \\
+% && \qquad \qquad 
+- P \cdot (u(L) + \alpha v(L))
+\nonumber \\
+ 	&=&
+\left.\left\{ 
+\int_0^L E 
+\left(\frac{d\us}{dx}  
++ \alpha \frac{dv}{dx}  \right) 
+\frac{dv}{dx}  
+- f(x) \cdot (v(x)) A\, dx  - P \cdot (v(L))
+\right\}
+\right|_{\alpha = 0} 
+\\
+ 	&=&
+\int_0^L E 
+% \left(
+\frac{d\us}{dx}  
+ % \right) 
+\frac{dv}{dx}  
+- f(x) \cdot v(x) A\, dx  - P \cdot v(L)
+\plabel{102} \\ 
+ 	&=& 0 \qquad \forall v(x) \in \cV 
+\plabel{103}
+\eea
+To see the connection between (\ref{102}) and (\ref{11}), 
+we use integration by parts on the first term in (\ref{102}).  
+
+Integration by parts is really the product rule of differentiation backwards. 
+Remembering this helps when applying it in multi-dimensional contexts.  
+Therefore, in order to integrate (\ref{102}) by parts, we first rewrite 
+the product of derivatives using the product rule: 
+\beq
+\frac{d}{dx}  \left( E \frac{d\us}{dx}  v(x) \right) 
+% &=& 
+=
+E \frac{d\us}{dx}  
+\frac{dv}{dx}  
++ 
+v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
+\eeq
+Therefore, 
+\bea
+\int_0^L E 
+\frac{d\us}{dx}  
+\frac{dv}{dx}  
+A\, dx  
+ 	&=& 
+\int_0^L E 
+\frac{d}{dx}  \left( E \frac{d\us}{dx}  v(x) \right) 
+- 
+v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
+A\, dx  
+\\
+ 	&=& 
+\int_0^L E 
+\frac{d}{dx}  \left( E \frac{d\us}{dx}  v(x) \right) 
+A\, dx  
+- 
+\int_0^L E 
+v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
+A\, dx  
+\\
+ 	&=& 
+\left.\left( E \frac{d\us}{dx}  v(x) \right) 
+A\right|_{x=0}^{x=L} 
+- 
+\int_0^L E 
+v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
+A\, dx  
+\\
+\mbox{since\ $v \in \cV$:} \qquad  	&=& 
+\left.\left( E \frac{d\us}{dx}
+\right) A \right|_{x=L} 
+  v(L) 
+- 
+\int_0^L E 
+v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
+A\, dx  
+\plabel{104}
+\eea
+
+
+\begin{tcolorbox}[title= Exercise]
+Get (\ref{104}) from the line above.  When you know how to do it, it's one line.  
+\end{tcolorbox}
+
+We now use (\ref{104}) to rewrite equation (\ref{102}) in the form: 
+\beq
+- \int_0^L 
+v(x) 
+\left[
+\frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
++ f(x) \right] A\, dx  
++\left[ \left.\left( E \frac{d\us}{dx}
+\right) \right|_{x=L} A
+- P \right] v(L)
+ 	= 0 \qquad \forall v(x) \in \cV 
+\plabel{105}
+\eeq
+Since (\ref{105}) holds for any choice of $v(x) \in \cV$, then we can conclude:
+\bea
+\frac{d}{dx}  \left( E \frac{d\us}{dx}  \right) + f(x)  
+&=& 0 
+\plabel{106} \\ 
+\left.\left( E \frac{d\us}{dx}
+\right) \right|_{x=L} 
+&=& P . 
+\plabel{107} 
+\eea
+Equations (\ref{106}) and (\ref{107}) are the Euler-Lagrange equations resulting from 
+minimizing the functional $\pit[u]$.  
+
+We see that $\us(x)$ 
+satisfies differential equation (\ref{106}), which is the same differential 
+equation as (\ref{11}).  Furthermore, $\us(x)$ satisfies boundary condition 
+(\ref{107}), which is the same boundary condition as (\ref{13}).  
+Since $\us(x)$ is required to be in the set $\cS$, then $\us$ also satisfies (\ref{12}).  
+Therefore $\us$ satisfies equations (\ref{11}, \ref{12}, \ref{13}) of Strong Form 2.  
+Since the solution of Strong Form 2 is unique, then its solution also minimizes 
+$\pit[u]$ over all functions in $\cS$.  
+
+In the process of minimizing $\pi[u]$, we found that boundary condition 
+(\ref{107}) (or (\ref{13})) resulted naturally as a consequence of the minimization.  By contrast, 
+boundary condition (\ref{12}) is an essential part of the formulation of the minimization problem. 
+Without boundary condition (\ref{12}), the minimization problem wouldn't make sense; there would be 
+no minimum.  Therefore, (\ref{12}) is called an {\em essential boundary condition}, while (\ref{13}) 
+is called a {\em natural boundary condition}. 
+
+
+
+\begin{tcolorbox}[title= Summary] 
+The function $\us(x)\in \cS$ minimizes the total potential energy $\pit[u]$, compared to all 
+other functions in $\cS$.  The minimizing function $\us$ 
+satisfies equations (\ref{11}, \ref{12}, \ref{13}) of Strong Form 2, 
+and likewise, the solution of Strong Form 2 minimizes 
+$\pit[u]$. 
+\end{tcolorbox}
+
+
+\section{Weak formulation}
+
+\subsection{Obtained from minimum potential energy}
+
+Above we showed that Strong Form 2 follows from equation (\ref{102}).  
+We divide (\ref{102}) through by the constant area $A$ and write that result here 
+for convenience: 
+\beq
+\int_0^L E 
+\frac{d\us}{dx}  
+\frac{dv}{dx}  
+- f(x) \cdot v(x) \, dx  - \sigo \cdot v(L)
+ 	= 0 \qquad \forall v(x) \in \cV 
+\plabel{weak1}
+\eeq
+Equation (\ref{weak1}) is known as the weak form the boundary value problem.  More precisely, 
+the weak form of the boundary value problem is:  
+
+\begin{tcolorbox}[title= Weak Form] 
+Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
+find $u(x) \in \cS$ such that for all $v(x) \in \cV$, 
+\beq
+\int_0^L E 
+\frac{d\us}{dx}  
+\frac{dv}{dx}  
+- f(x) \cdot v(x) \, dx  - \sigo \cdot v(L)
+ 	= 0 
+\plabel{weak}
+\eeq
+\end{tcolorbox}
+
+
+
+
+
+\subsection{Derivation from Strong Form 2}
+
+\begin{tcolorbox}[title= Exercise: Derive the weak form from the strong form] 
+Let $v \in \cV$.  Compute $\int_0^L (\ref{11})\,  v(x) dx$.  
+Integrate by parts and simplify to derive (\ref{weak}).  
+In the process of getting (\ref{weak}), you will need to use (\ref{12}) and (\ref{13}) 
+various steps.  Since you use (\ref{11}, \ref{12}, \ref{13}), this implies that the 
+solution of Strong Form 2 also satisfies Weak Form for $\u \in \cS$.  
+Can you identify where each of these eqns is used? 
+(\ref{12}) is subtle.
+\end{tcolorbox}
+
+
+
+
+\section{A mixed weak form}
+
+\subsection{Derivation from Strong Form 1}
+
+\subsection{Derivation from a mixed variational principle}
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
