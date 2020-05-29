@@ -491,6 +491,9 @@ find $u(x) \in \cS$ such that for all $v(x) \in \cV$,
 
 \subsection{Derivation from Strong Form 2}
 
+
+
+
 \begin{tcolorbox}[title= Exercise: Derive the weak form from the strong form] 
 Let $v \in \cV$.  Compute $\int_0^L (\ref{11})\,  v(x) dx$.  
 Integrate by parts and simplify to derive (\ref{weak}).  
@@ -512,6 +515,197 @@ Can you identify where each of these eqns is used?
 
 
 
+
+
+\section{Non-linear Weak Form}
+
+Here we will explore an example in which we consider the material behavior of the rod as nonlinear, as defined below:
+
+{\em Constitutive relationship:}
+\beq
+\sigma = E \epsilon e^{\beta \epsilon}
+\eeq
+
+\begin{tcolorbox}[title= Nonlinear Strong Form]
+Given $u_0$, $ \sigma_0 $, $E$, and $f(x)$, for $0<x<L$, find $u(x)$. $\epsilon(x)$,$\sigma(x)$ that satisfy:
+
+\beq
+\frac{d}{dx} \left( E \frac{du}{dx} e^{\beta \frac{du}{dx}} \right) + f = 0
+\eeq
+
+\beq
+u(0) = u_0
+\eeq
+
+\beq
+\left. E\frac{du}{dx} \right|_{x=L} = \sigo
+\eeq
+
+\end{tcolorbox}
+
+\beq
+\int_0^L \sigma(\epsilon) \frac{dv}{dx} - fvdx - P v(L) = 0
+\eeq
+
+\beq
+\int_0^L EA \frac{du}{dx} e^{\beta \frac{dv}{dx}} - fvdx - P v(L) = 0
+\eeq
+
+{\em Linear shape function:}
+\beq 
+N(x) = \begin{bmatrix} 1-\frac{x}{L} & \frac{x}{L} \end{bmatrix} ;
+B = \frac{dN}{dx} = \begin{bmatrix} \frac{L-1}{L} & \frac{1}{L} \end{bmatrix}
+\eeq 
+
+\subsection{Single Finite Element Approximation}
+
+\beq
+u(x) \approx U_1N_1(x) + U_2N_2(x)
+\eeq
+
+\beq
+v(x) \approx V_1N_1(x) + V_2N_2(x)
+\eeq
+
+\beq 
+N_1(x) = \frac{L-x}{L};
+N_2(x) = \frac{x}{L};
+B_2 = \frac{1}{L}
+\eeq 
+
+\beq 
+\int_0^L \left[ EAU_2B_2e^{\betaU_2B_2}V_2B_2 - f V_2N_2 \right] dx - P V_2 N(L)
+\eeq 
+
+{\em Solve integral and simplify:}
+\beq 
+AEL \frac{U_2}{L^2}e^{\beta U_2 /L} = P
+\eeq  
+
+
+Newton's method will be used to solve for $U_2$
+
+\beq
+F(U_2) = AEL \frac{U_2}{L^2}e^{\beta U_2 /L} - P = 0
+\eeq
+
+{\em First guess:}
+\beq
+U_2 = U_2^{(0)} = 0
+\eeq
+
+{\em Approximate $F(U_2)$ using first guess $(U_2^{(0)})$}
+\beq
+F(U_2) = F(U_2^{(0)} + \delta U_2)
+\eeq
+
+{\em Using a first-order Taylor Series expansion, (15) can be rewritten as such:}
+\beq
+F(U_2) \approx F(U_2^{(0)}) + \frac{dF}{dU}\delta U_2
+\eeq
+
+\beq 
+F'(U) = \frac{AE}{L} e^{\beta U/L} \left( 1 + U\frac{\beta}{L}\right)
+\eeq 
+
+{\em At $U=0$ (our first approximation is analogous to linear elastic deformation):}
+\beq 
+F'(0) = \frac{AE}{L} \therefore \delta U = \frac{PL}{AE}
+\eeq 
+
+{\em For the next Newton iteration (using $\delta U$ as our guess) :}
+\beq 
+F'(U^{(1)} = P \left( e^{\beta P/AE} -1 \right)
+\eeq 
+
+\beq 
+F'(U^{(1)} + \left. \frac{dF}{dU} \right|_{U^{(1)}} \delta U = 0
+\eeq 
+
+\beq 
+P \left( e^{\beta P/AE} -1 \right) + \frac{AE^*}{L} \delta U = 0; E^* = E e^{\beta P/AE} \left( 1 + \frac{\beta P}{AE} \right)
+\eeq 
+
+\beq 
+\delta U = \frac{-PL}{AE^*} \left( e^{\beta P/AE} - 1 \right)
+\eeq 
+
+\subsection{Finite Element Approximation (2 elements)}
+Next, let's consider the same nonlinear elastic rod solved with two finite elements:
+
+{\em Weak form:}
+\beq 
+\int_0^L \left[ EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x) \right] dx - Pv(L)
+\eeq 
+
+\beq 
+u(x) \approx U_0N_0(x) + U_1N_1(x) + U_2N_2(x)
+\eeq 
+
+\beq 
+v(x) \approx V_0N_0(x) + V_1N_1(x) + V_2N_2(x)
+\eeq 
+
+{\em Impose essential boundary conditions:}
+\beq 
+u(0) \approx U_0 = 0; v(0) \approx V_0 = 0
+\eeq 
+
+\beq 
+u(x) \approx U_1N_1(x) + U_2N_2(x); v(x) \approx V_1N_1(x) + V_2N_2(x)
+\eeq 
+
+\beq 
+\sum_{elms} \int_{L_e} \left[ EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x) \right] dx - Pv(L)
+\eeq 
+
+{\em Assume no body forces ($f=0$)}
+
+\begin{align*}
+\int_0^{h_1} \left[ EA \left(U_1B_1 \right) e^{\beta \left(U_1B_1 \right)} V_1B_1 \right] dx
+\\
++ \int_0^{h_2} \left[ EA \left(U_1B_1 +U_2B_2 \right) e^{\beta \left(U_1B_1 + U_2B_2\right)} \left( V_1B_1 + V_2 B_2 \right) \right] dx - P \left[ V_1N_1(L) + V_2 N_2(L) \right]
+\end{align*}
+
+\beq
+B_1^{(1)} = 1/h_1; B_1^{(2)} = -1/h_2; B_2^{(2)} = 1/h_2
+\eeq
+
+\beq
+\int_0^{h_1} \left[ EA \frac{U_1}{h_1}e^{\beta U_1/h_1}\frac{V_1}{h_1} \right]dx + \int_0^{h_2} \left[ \frac{EA}{h_2}(-U_1+U_2) e^{\frac{\beta}{h_2}(-U_1+U_2)}\frac{(-V_1+V_2)}{h_2}  \right]dx - P(V_1(0) + V_2(1))
+\eeq
+
+\beq
+\left[ EA \frac{U_1}{h_1}e^{\beta U_1/h_1}V_1 \right] + \left[ \frac{EA}{h_2}(-U_1+U_2) e^{\frac{\beta}{h_2}(-U_1+U_2)}(-V_1+V_2) \right] - P(V_2) = 0
+\eeq
+
+\beq
+U'=U_2-U_1 ; V'=V_2-V_1
+\eeq
+
+\beq
+EA \frac{U_1}{h_1}e^{\beta U_1/h_1}V_1 + \frac{EA}{h_2}U' e^{\beta U'/h_2}V' - P(V_2) = 0
+\eeq
+
+{\em Equation 1:}
+\beq
+V_1 = 1; V_2 = 0
+\eeq
+
+\beq
+F_1(U_1,U_2) = \frac{EAU_1}{h_1}e^{\beta U_1/h_1} - \frac{EAU'}{h_2}e^{\beta U'/h_2} = 0
+\eeq
+
+{\em Equation 2:}
+\beq
+V_1 = 0; V_2 = 1
+\eeq
+
+\beq
+F_2(U_1,U_2) = \frac{EAU'}{h_2}e^{\beta U'/h_2} - P = 0
+\eeq
+
+Newton's method iterations:
 
 
 \end{document}
