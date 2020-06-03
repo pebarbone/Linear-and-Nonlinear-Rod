@@ -32,6 +32,10 @@
 \def \cS{{\cal{S}}}
 \def \cV{{\cal{V}}}
 \def \us{{u^{*}}}
+\def \xs{{x^{*}}}
+\def \bxs{{\bx^{*}}}
+\def \J{\mbox{\boldmath{$J_n$}}}
+\def \bF{\mbox{\boldmath{$F$}}}
 
 \begin{document}
 
@@ -549,6 +553,7 @@ u(0) = u_0
 
 \beq
 \int_0^L EA \frac{du}{dx} e^{\beta \frac{dv}{dx}} - fvdx - P v(L) = 0
+\plabel{nonlin_weak}
 \eeq
 
 {\em Linear shape function:}
@@ -574,7 +579,7 @@ B_2 = \frac{1}{L}
 \eeq 
 
 \beq 
-\int_0^L \left[ EAU_2B_2e^{\betaU_2B_2}V_2B_2 - f V_2N_2 \right] dx - P V_2 N(L)
+\int_0^L \left[ EAU_2B_2e^{\beta U_2B_2}V_2B_2 - f V_2N_2 \right] dx - P V_2 N(L)
 \eeq 
 
 {\em Solve integral and simplify:}
@@ -706,6 +711,245 @@ F_2(U_1,U_2) = \frac{EAU'}{h_2}e^{\beta U'/h_2} - P = 0
 \eeq
 
 Newton's method iterations:
+
+
+\section{Newton's method applied to functionals and functions} 
+
+\subsection{Newton's method for a scalar unknown}
+
+Here we suppose we wish to find $\xs$, the solution of the nonlinear equation 
+\beq
+F(\xs) = 0. 
+\plabel{n1}
+\eeq
+We know that $\xs \approx x_0$, but this approximation is (for whatever reason) 
+not satisfactory for us.  We seek to improve it.  
+
+We can improve our approximation for $\xs$ by approximating the equation itself.  
+To that end, we use a truncated Taylor expansion about the point $x_0$: 
+\beq
+F(x) \approx F^L(x;x_0) = F(x_0) + \left.\frac{dF}{dx}\right|_{x=x_0} (x-x_0).
+\plabel{n2}
+\eeq
+Here, $F^L(x;x_0)$ stands for the ``linear approximation" to $F(x)$ around 
+the point $x=x_0$. 
+Since $F^L$ is a linear function, it is easy to find its root.  
+
+Therefore, we choose $x_1$, our improved approximation to $\xs$, to be the solution of 
+\beq
+F^L(x_1;x_0) = 0. 
+\plabel{n3}
+\eeq
+In detail, that means: 
+\bea
+F(x_0) + \left.\frac{dF}{dx}\right|_{x=x_0} (x_-x_0) &=& 0 
+\plabel{n4} \\ 
+\left[\left.  \frac{dF}{dx}\right|_{x=x_0}\right] (x_1-x_0) &=& -  F(x_0). 
+\plabel{n5} 
+\eea
+We note that here, $\left.\frac{dF}{dx}\right|_{x=x_0}$ is just a scalar, and so solving 
+the linear equation (\ref{n5}) for $x_1 - x_0$ is straightforward.  
+We also notice that we're solving for $(x_1 - x_0)$, really, which is the 
+amount we need to change $x_0$ to get a new-and-improved $x_1$. We call 
+this quantity ``the update".  When done, we have an improved approximation 
+$\xs \approx x_1$.\footnote{We {\em hope} the approximation is improved, but it's not always the 
+case. 
+For us to be sure that it is an improvement, 
+$F(x)$ has to have nice properties in the neighborhood of $\xs$, {\em and} our initial guess 
+needs to be near enough to $\xs$ that those nice properties still apply to $x_0$.  
+It's not always practical to check those properties, but we can to things to make sure our 
+intial guess is very close to $\xs$.} 
+
+Having figured out how to improve our initial guess once, we can repeat the process to 
+get a sequence of (we hope) more accurate approximations to $\xs$, by solving: 
+\bea
+F^L(x_{n+1};x_{n}) &=& 0, 
+\plabel{n6} \\ 
+\mbox{or:\qquad} 
+\left[\left.  \frac{dF}{dx}\right|_{x=x_n}\right] (\delta x_{n+1}) &=& -  F(x_{n}). 
+\plabel{n7} 
+\eea
+Here, we introduced the update, $\delta x_{n+1}$, defined as:  
+\beq
+\delta x_{n+1} =  x_{n+1} -x_{n}. 
+\plabel{n8} 
+\eeq
+
+
+\subsection{Newton's method for multiple scalar unknowns}
+
+Now we suppose we wish to find $\bxs = [\xs_1, \xs_2, \xs_3, \ldots, \xs_{N_{unk}}]^T$, 
+the column vector that represents the $N_{unk}$ 
+solutions of the $N_{eqns}$ simultaneous nonlinear equations: 
+\beq
+F_j(\bxs) = 0.  \qquad j = 1,2, \ldots, N_{eqns}. 
+\plabel{n10}
+\eeq
+Typically, we need to have the same number of equations as unknowns, and so we 
+will require $N_{unk} = N_{eqns}$.  
+As before, we will suppose that 
+we know $\bxs \approx \bx_n$, and seek $\bx_{n+1}$ which is an improvement to this approximation 
+
+To that end, we again use a truncated Taylor expansion about the point $\bx_n$, 
+\beq
+F_j(\bx) \approx F_j^L(\bx;\bx_n) = F_j(\bx_n) + \sum_{i = 1}^{N_{unk}}\left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} (x_i - x_{i_n}). 
+\plabel{n12}
+\eeq
+Here, $F_j^L(\bx;\bx_n)$ stands for the ``linear approximation" to $F_j(\bx)$ around 
+the point $\bx=\bx_n$. 
+The numbers $ \left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} $ 
+represent entries in a square matrix: 
+\bea
+\J &=&  \nabla \bF \\ 
+\J_{ji} &=& \left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} . 
+\plabel{n13} 
+\eea
+This matrix is often referred to as the ``Jacobian matrix" for the system of equations.  
+(It's not related to the Jacobian of the deformation from continuum mechanics, 
+except that both involve the derivative of a bunch of functions with respect to a 
+bunch of variables.)
+
+As with the linear case, we choose our next approximation by requiring it to solve the 
+linear equations, linearized about the current approximation: 
+\beq
+F_j^L(\bx_{n+1};\bx_n) = 0, \qquad j = 1, 2, \ldots, N_{eqns}. 
+\plabel{n14}
+\eeq
+ 
+
+We can write (\ref{n14}) out in more detail but still succinctly by introducing 
+the column vector $\bF_{n} = [ F_1(\bx_n), F_2(\bx_n), \ldots, F_{N_{eqns}}(\bx_n)] ^T$. 
+Similarly, we can introduce a vector of unknowns, $\delta \bx_{n+1}$, whose entries are given by: 
+\beq
+\delta x_{i_{n+1}} = (x_{i_{n+1}} - x_{i_n}). 
+\plabel{n15}
+\eeq
+Then, equation (\ref{n14}) can be written as the matrix equation: 
+\beq
+\J \delta \bx_{n+1} = -\bF_{n} . 
+\plabel{n16} 
+\eeq
+
+
+
+\subsection{Newton's method with function unknowns} 
+
+First we recall our nonlinear weak form: 
+\begin{tcolorbox}[title= Nonlinear Weak Form] 
+Given $u_o$, $\sigo$, $E$, $\beta$,  and $f(x)$,  for $0 < x < L$, 
+find $\us(x) \in \cS$ such that for all $v(x) \in \cV$, 
+\beq
+\int_0^L E \frac{d\us}{dx} e^{\beta \frac{d\us}{dx}} \, \frac{dv}{dx} 
+- f(x)\, v(x)\, dx - \sigo v(L) = 0
+\plabel{nonlin_weak}
+\eeq
+\end{tcolorbox}
+
+We can rewrite (\ref{nonlin_weak}) using the abstract notation: 
+\bea
+a(\us,v) &=& l(v)
+\plabel{n20} \\ 
+a(u,v) &=& \int_0^L E \frac{du}{dx} e^{\beta \frac{du}{dx}} \, \frac{dv}{dx} \, dx 
+\plabel{n21} \\ 
+l(v) &=& f(x)\, v(x)\, dx + \sigo v(L) 
+\plabel{n22} 
+\eea
+
+We suppose we have an initial approximation, $u_n(x)$, for the solution $\us(x)$. 
+We linearize equation (\ref{n21}) around $u = u_n$ as follows: 
+\bea
+a(u,v) = a(u_n + \delta u,v) &\approx& a_L(\delta u,v; u_n) = a(u_n,v) + b(\delta u, v; u_n) 
+\plabel{n23} \\ 
+b(\delta u, v; u_n) &=& \lim_{\alpha \rightarrow 0} \frac{d}{d\alpha} 
+			a(u_n + \alpha \delta u,v) 
+\plabel{n24} 
+\eea
+
+In perfect analogy with equation (\ref{n14}), we find the update by solving {\em the linear 
+problem}: 
+\beq
+a_L(\delta u_{n+1},v; u_n) = l(v)
+	, \qquad \forall v\in \cV. 
+\plabel{n25}
+\eeq
+Alternatively, (\ref{n23}) may be used to rewrite (\ref{n25}) as: 
+\begin{tcolorbox}[title= Newton's Method in Weak Form]
+Given $u_0(x)$. Let $n=0$.  Solve:
+\beq
+b(\delta u_{n+1}, v; u_n)  = l(v) - a(u_n,v)
+	, \qquad \forall v\in \cV. 
+\plabel{n26}
+\eeq
+Update: 
+\beq
+   u_{n+1} = u_n + \delta u_{n+1}
+\plabel{n26.5}
+\eeq
+Let $n \leftarrow n+1$.  Loop to (\ref{n26}). 
+\end{tcolorbox}
+
+
+
+
+\subsubsection{Specific form of $b(\delta u, v; u_n)$} 
+
+To figure out what $b(\delta u, v; u_n)$ is for our problem, we need to use 
+its definition (\ref{n24}) and the explicit expression for $a(u,v)$ in (\ref{n21}). 
+\bea
+b(\delta u, v; u_n) 
+%
+&=& \lim_{\alpha \rightarrow 0} \frac{d}{d\alpha} 
+			a(u_n + \alpha \delta u,v) 
+\\ 
+&=& \lim_{\alpha \rightarrow 0} \frac{d}{d\alpha} 
+		\int_0^L E \frac{d}{dx}(u_n + \alpha \delta u)  e^{\beta \frac{d}{dx}(u_n + \alpha \delta u) } \, \frac{dv}{dx} \, dx 
+\\ 
+&=&  \lim_{\alpha \rightarrow 0} 
+		\int_0^L E 
+\frac{d}{d\alpha} \left[ 
+\frac{d}{dx}(u_n + \alpha \delta u) \right] e^{\beta \frac{d}{dx}(u_n + \alpha \delta u) } \, \frac{dv}{dx} \, dx 
+\nonumber \\ 
+&& +   \lim_{\alpha \rightarrow 0} 
+		\int_0^L E \frac{d}{dx}(u_n + \alpha \delta u)  
+\frac{d}{d\alpha} \left[ 
+e^{\beta \frac{d}{dx}(u_n + \alpha \delta u) }\right] \, \frac{dv}{dx} \, dx 
+\\ 
+&=&  \lim_{\alpha \rightarrow 0} 
+		\int_0^L E 
+\frac{d}{dx}\left[ \frac{d}{d\alpha} 
+(u_n + \alpha \delta u) \right] e^{\beta \frac{d}{dx}(u_n + \alpha \delta u) } \, \frac{dv}{dx} \, dx 
+\nonumber \\ 
+&& +   \lim_{\alpha \rightarrow 0} 
+		\int_0^L E \frac{d}{dx}(u_n + \alpha \delta u)  
+e^{\beta \frac{d}{dx}(u_n + \alpha \delta u) }
+\frac{d}{d\alpha} \left(
+\beta \frac{d}{dx}(u_n + \alpha \delta u)
+\right) \, \frac{dv}{dx} \, dx 
+\\ 
+&=& 
+		\int_0^L E 
+\frac{d \delta u }{dx}
+e^{\beta \frac{d u_n }{dx} } \, \frac{dv}{dx} \, dx 
+\nonumber \\ 
+&& +   
+		\int_0^L E \frac{d u_n }{dx}
+e^{\beta \frac{d u_n}{dx}}
+\beta \frac{d\delta u}{dx}
+ \, \frac{dv}{dx} \, dx 
+\\ 
+&=& 
+		\int_0^L 
+		E e^{\beta \frac{d u_n}{dx}}
+\left[1 + \beta \frac{d u_n }{dx} \right] \frac{d\delta u}{dx} \, \frac{dv}{dx} \, dx 
+\plabel{inc_weak_form}
+\eea
+
+\begin{tcolorbox}[title= Exercise]
+Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}). 
+\end{tcolorbox}
+
+
+
 
 
 \end{document}
