@@ -711,6 +711,127 @@ F_2(U_1,U_2) = \frac{EAU'}{h_2}e^{\beta U'/h_2} - P = 0
 \eeq
 
 Newton's method iterations:
+Given $F_1(U_1,U_2)$ and $F_2(U_1,U_2)$, find $U_1^*$ and $U_2^*$ so that $F_1(U_1^*,U_2^*) = 0$ and $F_2(U_1^*,U_2^*)=0$
+\\
+For the first Newton's method iteration, we will be solving solving the following linear problem to find $\delta U_1$ and $\delta U_2$. Our first guess for $U^*$ is 0, and we will repeat this process for the next iteration with an improved guess using $\delta U_1$ and $\delta U_2$.
+
+
+\beq
+\begin{bmatrix} \frac{\partial F_1}{\partial U_1} & \frac{\partial F_1}{\partial U_2} \\
+                \frac{\partial F_2}{\partial U_1} & \frac{\partial F_2}{\partial U_2}
+\end{bmatrix}
+\begin{bmatrix} \delta U_1 \\
+                \delta U_2
+\end{bmatrix} +
+\begin{bmatrix} F_1(0,0) \\
+                F_2(0,0)
+\end{bmatrix} =
+\begin{bmatrix} 0 \\ 0
+\end{bmatrix}
+\eeq
+
+{\em The four components for $\frac{\partial F}{\partial U}$:}
+\beq
+\frac{\partial F_1}{\partial U_1} = \frac{EA}{h_1} e^{\frac{\beta U_1}{h_1}} \left( \frac{U_1 \beta}{h_1} + 1 \right) + \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
+\eeq
+
+\beq
+\frac{\partial F_1}{\partial U_2} = - \frac{EA}{h_2} e^{\frac{\bets U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
+\eeq
+
+\beq
+\frac{\partial F_2}{\partial U_1} = - \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
+\eeq
+
+\beq
+\frac{\partial F_2}{\partial U_2} = \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
+\eeq
+
+{\em Evaluating $F(U_1,U_2)$ ($U^{(0)} = 0$):}
+
+\beq
+F_1(U_1,U_2) \approx F_1(U_1^{(0)},U_2^{(0)}) + \frac{dF_1}{dU} \delta U = \frac{\partial F_1}{\partial U_1} \delta U_1 + \frac{\partial F_1}{\partial U_2} \delta U_2
+\eeq
+
+\beq
+F_2(U_1,U_2) \approx F_2(U_1^{(0)},U_2^{(0)}) + \frac{dF_2}{dU} \delta U = -mg + \frac{\partial F_2}{\partial U_1} \delta U_1 + \frac{\partial F_2}{\partial U_2} \delta U_2
+\eeq
+
+{\em Plugging these into the above system:}
+
+\beq
+\begin{bmatrix}
+  \frac{EA}{h_1} + \frac{EA}{h_2} & - \frac{EA}{h_2} \\
+- \frac{EA}{h_2} & \frac{EA}{h_2}
+\end{bmatrix}
+\begin{bmatrix}
+\delta U_1^{(0)} \\ \delta U_2^{(0)}
+\end{bmatrix} +
+\begin{bmatrix}
+0 \\ - mg
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 0
+\end{bmatrix}
+\eeq
+
+{\em Solving this system yields the following definitions for $\delta U_1$ and $\delta U_2$:}
+\beq
+\delta U_1^{(0)} = \frac{Ph_1}{EA}
+\eeq
+
+\beq
+\delta U_2^{(0)} = \frac{P}{EA} (h_1+h_2)
+\eeq
+
+{\em Let's now improve our initial guess:}
+
+\beq
+U^{(1)} = U^{(0)} + \delta U^{(0)}
+\eeq
+
+\beq
+U' = U_2 - U_1 = \frac{Ph_2}{EA}
+\eeq
+
+\beq
+F_1 (U_1^{(1)}, U'^{(1)}) = F_1 \left( \frac{Ph_1}{EA},\frac{Ph_2}{EA} \right) = 0
+\eeq
+
+\beq
+F_2 (U_1^{(1)}, U'^{(1)}) = F_2 \left( \frac{Ph_1}{EA},\frac{Ph_2}{EA} \right) = P \left( e^{\frac{\beta P}{EA}} - 1 \right)
+\eeq
+
+\beq
+\begin{bmatrix}
+\left[ \frac{1}{h_1} + \frac{1}{h_2} \right] EAe^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) & - \frac{EA}{h_2}e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \\
+- \frac{EA}{h_2}e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) & \frac{EA}{h_2}e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right)
+\end{bmatrix}
+\begin{bmatrix}
+\delta U_1^{(1)} \\ \delta U_2^{(1)}
+\end{bmatrix} +
+\begin{bmatrix}
+0 \\ P \left( e^{\frac{\beta P}{EA}} - 1 \right)
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 0
+\end{bmatrix}
+\eeq
+
+{\em Our unknowns $\delta U^{(1)}$ can be solved using the above linearly independent system of  equations}
+
+\beq
+\delta U_2^{(1)} = \frac{h_1 + h_2}{h_1} \delta U_1^{(1)}
+\eeq
+
+\beq
+\delta U_1^{(1)} = P \left( -e^{\frac{\beta P}{EA}} + 1 \right) \left[ \frac{EA}{h_2} e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \left( \frac{h_1 + h_2}{h_1} - 1 \right) \right]^{-1}
+\eeq
+
+\beq
+\delta U_2^{(1)} = P \left( -e^{\frac{\beta P}{EA}} + 1 \right) \left( \frac{h_1 + h_2}{h_1} \right) \left[ \frac{EA}{h_2} e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \left( \frac{h_1 + h_2}{h_1} - 1 \right) \right]^{-1}
+\eeq
+
 
 
 \section{Newton's method applied to functionals and functions} 
