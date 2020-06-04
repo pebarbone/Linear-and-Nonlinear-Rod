@@ -274,7 +274,7 @@ admissible variations.
 \begin{tcolorbox}[title=Exercise:]
 Use the definition given to show that 
 \beq
-\cV = \left\{ v(x) | v(x)\in C^0[0,L];\  v(0) = u_o. \right\}
+\cV = \left\{ v(x) | v(x)\in C^0[0,L];\  v(0) = 0. \right\}
 \plabel{V}
 \eeq
 \end{tcolorbox}
@@ -357,23 +357,23 @@ v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 \eeq
 Therefore, 
 \bea
-\int_0^L E 
+\int_0^L
 \frac{d\us}{dx}  
 \frac{dv}{dx}  
 A\, dx  
  	&=& 
-\int_0^L E 
+\int_0^L
 \frac{d}{dx}  \left( E \frac{d\us}{dx}  v(x) \right) 
 - 
 v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 A\, dx  
 \\
  	&=& 
-\int_0^L E 
+\int_0^L
 \frac{d}{dx}  \left( E \frac{d\us}{dx}  v(x) \right) 
 A\, dx  
 - 
-\int_0^L E 
+\int_0^L
 v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 A\, dx  
 \\
@@ -381,7 +381,7 @@ A\, dx
 \left.\left( E \frac{d\us}{dx}  v(x) \right) 
 A\right|_{x=0}^{x=L} 
 - 
-\int_0^L E 
+\int_0^L
 v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 A\, dx  
 \\
@@ -390,7 +390,7 @@ A\, dx
 \right) A \right|_{x=L} 
   v(L) 
 - 
-\int_0^L E 
+\int_0^L
 v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 A\, dx  
 \plabel{104}
