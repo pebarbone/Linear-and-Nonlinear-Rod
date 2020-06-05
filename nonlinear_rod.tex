@@ -597,6 +597,7 @@ F(U_2) = AEL \frac{U_2}{L^2}e^{\beta U_2 /L} - P = 0
 {\em First guess:}
 \beq
 U_2 = U_2^{(0)} = 0
+\plabel{newt-guess}
 \eeq
 
 {\em Approximate $F(U_2)$ using first guess $(U_2^{(0)})$}
@@ -604,7 +605,7 @@ U_2 = U_2^{(0)} = 0
 F(U_2) = F(U_2^{(0)} + \delta U_2)
 \eeq
 
-{\em Using a first-order Taylor Series expansion, (15) can be rewritten as such:}
+{\em Using a first-order Taylor Series expansion, (\ref{newt-guess}) can be rewritten as such:}
 \beq
 F(U_2) \approx F(U_2^{(0)}) + \frac{dF}{dU}\delta U_2
 \eeq
