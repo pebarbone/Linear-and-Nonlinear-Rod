@@ -641,12 +641,12 @@ Next, let's consider the same nonlinear elastic rod solved with two finite eleme
 
 \begin{tcolorbox}[title= Nonlinear Weak Form]{
 % \fbox{
-Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
-find $u(x) \in \cS$ such that for all $v(x) \in \cV$, 
+Given $u_o$, $\sigo$, $E$, $\beta$ and $f(x)$,  for $0 < x < L$, 
+find $u^*(x) \in \cS$ such that for all $v(x) \in \cV$, 
 \beq
 \int_0^L \left[
-EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x)
-\right] dx - Pv(L) = 0
+E \frac{du^*}{dx} e^{\beta \frac{du^*}{dx}} \frac{dv}{dx} - f(x)v(x)
+\right] dx - \sigo v(L) = 0
 \eeq
 }
 \end{tcolorbox}
@@ -860,7 +860,7 @@ To that end, we use a truncated Taylor expansion about the point $x_0$:
 F(x) \approx F^L(x;x_0) = F(x_0) + \left.\frac{dF}{dx}\right|_{x=x_0} (x-x_0).
 \plabel{n2}
 \eeq
-Here, $F^L(x;x_0)$ stands for the ``linear approximation" to $F(x)$ around 
+Here, $F^L(x;x_0)$ stands for the ``linear approximation'' to $F(x)$ around 
 the point $x=x_0$. 
 Since $F^L$ is a linear function, it is easy to find its root.  
 
@@ -880,7 +880,7 @@ We note that here, $\left.\frac{dF}{dx}\right|_{x=x_0}$ is just a scalar, and so
 the linear equation (\ref{n5}) for $x_1 - x_0$ is straightforward.  
 We also notice that we're solving for $(x_1 - x_0)$, really, which is the 
 amount we need to change $x_0$ to get a new-and-improved $x_1$. We call 
-this quantity ``the update".  When done, we have an improved approximation 
+this quantity ``the update''.  When done, we have an improved approximation 
 $\xs \approx x_1$.\footnote{We {\em hope} the approximation is improved, but it's not always the 
 case. 
 For us to be sure that it is an improvement, 
@@ -933,7 +933,7 @@ represent entries in a square matrix:
 \J_{ji} &=& \left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} . 
 \plabel{n13} 
 \eea
-This matrix is often referred to as the ``Jacobian matrix" for the system of equations.  
+This matrix is often referred to as the ``Jacobian matrix'' for the system of equations.  
 (It's not related to the Jacobian of the deformation from continuum mechanics, 
 except that both involve the derivative of a bunch of functions with respect to a 
 bunch of variables.)
