@@ -637,12 +637,19 @@ P \left( e^{\beta P/AE} -1 \right) + \frac{AE^*}{L} \delta U = 0; E^* = E e^{\be
 \eeq 
 
 \subsection{Finite Element Approximation (2 elements)}
-Next, let's consider the same nonlinear elastic rod solved with two finite elements:
+Next, let's consider the same nonlinear elastic rod solved with two finite elements. The weak form can be restated from (ref{nonlin_weak}):
 
-{\em Weak form:}
-\beq 
-\int_0^L \left[ EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x) \right] dx - Pv(L)
-\eeq 
+\begin{tcolorbox}[title= Nonlinear Weak Form]{
+% \fbox{
+Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
+find $u(x) \in \cS$ such that for all $v(x) \in \cV$, 
+\beq
+\int_0^L \left[
+EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x)
+\right] dx - Pv(L) = 0
+\eeq
+}
+\end{tcolorbox}
 
 \beq 
 u(x) \approx U_0N_0(x) + U_1N_1(x) + U_2N_2(x)
