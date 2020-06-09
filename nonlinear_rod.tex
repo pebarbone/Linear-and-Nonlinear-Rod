@@ -21,7 +21,6 @@
 \def\eeq{\end{equation}}
 \def\bea{\begin{eqnarray}}
 \def\eea{\end{eqnarray}}
-
 \def \be{\mbox{\boldmath{$e$}}}
 \def \u{\mbox{\boldmath{$u$}}}
 \def \bx{\mbox{\boldmath{$x$}}}
@@ -36,44 +35,29 @@
 \def \bxs{{\bx^{*}}}
 \def \J{\mbox{\boldmath{$J_n$}}}
 \def \bF{\mbox{\boldmath{$F$}}}
-
 \begin{document}
-
 \title{Nonlinear elastic rod}
-
-
 \author{Andre, Paul, Elise}
-
-
 \date{\today}
-
 \maketitle
-
 \tableofcontents
 \newpage
-
-
 \section{Introduction}
-
 We derive equations of equilibrium for uniaxial deformation of an elastic rod.  
 We approach the problem from three perspectives:  strong form (direct equilibrium equation), weak form, 
 and minimization of 
 the total potential energy.  
-
 We eventually consider the material behavior of the rod as nonlinear, but assume the strains 
 are sufficiently small to neglect geometric nonlinearity.  To begin with, however, 
 we start with linear elastic material assumption. 
-
 \section{Strong formulation}
 \subsection{Fundamental equations}
-
 Here we let $u(x)$ represent the axial displacement of a particle whose initial position is $x$, 
 $\ep(x)$ is the axial strain in the rod at location $x$, and $\sigma(x)$ is the stress acting on the 
 cross section of the rod at 
 location $x$.  $f(x)$ is a body force (i.e.\ a force per unit volume) assumed to be known in the rod.  
 Here we focus on the special case that the rod has uniform cross sectional area, $A$, and zero traction along 
 its length.  
-
 \bigskip
 \noindent
 {\em Equilibrium equation:}
@@ -96,13 +80,10 @@ its length.
 \ep = \frac{d u}{dx} 
 \plabel{u-ep}
 \eeq
-
 \begin{tcolorbox}[title= Exercise]
 Derive equation (\ref{equil}). 
 \end{tcolorbox}
-
 \subsection{An example $1D$ boundary value problem} 
-
 We now consider a rod that has length $L$.  It is fixed at $x=0$ and is acted upon at $x=L$ by a force $P$.  
 We let $\sigo = P/A$.   A body force $f(x)$ is known.    Therefore, in addition to equations (\ref{equil}-\ref{u-ep}), 
 we need to add the boundary conditions: 
@@ -112,13 +93,11 @@ u(0) &=& u_o
 \sigma(L) &=& P/A = \sigo .
 \plabel{bc2}
 \eea 
-
 \begin{tcolorbox}[title= Strong Form 1]{
 % \fbox{
 Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
 find 
 $u(x)$, $\ep(x)$, $\sigma(x)$ that satisfy:
-
 \bea
 \frac{d\sigma}{dx}  + f &=& 0 \\  
 \sigma &=& E \ep \\ 
@@ -128,19 +107,15 @@ u(0) &=& u_o \\
 \eea 
 }
 \end{tcolorbox}
-
 This box summarizes all our fundamental equations and boundary conditions.  The unknowns are $u, \ep, \sigma$.  
 To solve for these unknowns, we have two first-order odes, and one algebraic equation (\ref{sig-ep}).  
 If we were to set about to solving this problem, the first thing that we might do is use equations (\ref{sig-ep}) 
 and (\ref{u-ep}) to eliminate the unknowns $\sigma$ and $\ep$ in favor of $u(x)$.  This would then give us: 
-
-
 \begin{tcolorbox}[title= Strong Form 2]{
 % \fbox{
 Given $u_o$, $\sigo$, $E$, and $f(x)$,  for $0 < x < L$, 
 find 
 $u(x)$, that satisfies:
-
 \bea
 \frac{d}{dx} \left(E \frac{du}{dx} \right) + f &=& 0
 \plabel{11} \\  
@@ -154,7 +129,6 @@ u(0) &=& u_o
 }
 \end{tcolorbox}
 Here we have just the one unknown function, $u(x)$ and one differential equation.  
-
 These problems are equivalent, but they are different.  
 One has three unknown functions; the other one unknown function.
 One has two first order differential equations; the other had one second order differential equation. 
@@ -163,20 +137,14 @@ If one uses the Strong Form 2 and wishes to know the stress, then the stress mus
 {\em post-process}.  Generally speaking, if one knows any of the functions, $u, \ep, \sigma$, then 
 the problem is considered to be solved.  The others can be evaluated {\em relatively} 
 easily from (\ref{sig-ep}) and/or (\ref{u-ep}).  
-
 \section{Minimum potential energy}
-
 Here we reformulate the problem using the principle of minimum potential energy.  
-
 \subsection{Fundamental equations} 
-
 \subsubsection{Stored elastic potential energy}
-
 Let $W$ denote the elastic energy density, i.e.\ the energy per unit volume, contained in a deformed solid.  
 (Normally we think of $W = W(\ep)$ to be a pure function of strain (i.e.\ it depends {\em only} on strain).  
 One definition of an elastic material is that $W = W(\ep)$.)  For a linear elastic material in 
 uniaxial tension, $W = \frac{1}{2} E \ep^2$. 
-
 \bigskip
 \noindent
 {\em Elastic potential energy:}
@@ -186,11 +154,8 @@ uniaxial tension, $W = \frac{1}{2} E \ep^2$.
 \plabel{pie}
 \eea
 Note that in (\ref{pie}), we think of $\ep$ as determined by $u(x)$ through equation (\ref{u-ep}).  
-
 \subsubsection{Work done by loading} 
-
 The sum of all work done by all externally applied loads is: 
-
 \bigskip
 \noindent
 {\em External work:}
@@ -207,11 +172,8 @@ represents energy lost by some conservative loading machine, so that
 \Pi_{Load}[u] = - \ell[u]. 
 \eeq
 That is, work done on the rod is the energy lost by $\Pi_{Load}$.  
-
 \subsubsection{Total potential energy}
-
 The total potential energy is, therefore, $\pit = \pie + \Pi_{Load}$, or 
-
 \bigskip
 \noindent
 {\em Total potential energy:}  
@@ -219,17 +181,13 @@ The total potential energy is, therefore, $\pit = \pie + \Pi_{Load}$, or
 \pit[u] &=& \pie[u] - \ell[u] \\ 
 	&=& \int_0^L W(\ep(u))  - f(x) \cdot u(x) A\, dx  - P \cdot u(L) 
 \eea
-
 \subsection{Principle of minimum potential energy} 
-
 \begin{tcolorbox}[title= Principle of minimum potential energy - wordy]
 Of all admissible functions, $u(x)$, the equilibrium 
 displacement field is given by the $u(x)$ that minimizes $\pit[u]$.
 \end{tcolorbox}
-
 \subsubsection{Admissible displacement fields} 
-
-Admissible displacement fields must satisfy an appriate degree of continuity and 
+Admissible displacement fields must satisfy an appropriate degree of continuity and 
 satisfy our {\em essential} boundary conditions.  In our example boundary value 
 problem, the essential boundary condition is (\ref{bc1}).  The appropriate degree of 
 continuity in $1D$ is that the functions be at least continuous.  
@@ -247,15 +205,12 @@ $u(x)$ is in the set $C^0$, or in math-speak, $u(x) \in C^0[0,L]$.
 $u(x)$ are required to be continuous.  Thus $C^3[0,L]$ is the set of all functions 
 whose third derivative (and therefore second and first and zeroth) 
 is continuous between $0 \le x \le L$.}
-
 Therefore we introduce the set $\cS$ of admissible displacement fields, $u(x)$: 
 \beq
 \cS = \left\{ u(x) | u(x)\in C^0[0,L];\  u(0) = u_o. \right\}
 \plabel{S}
 \eeq
 This reads, ``$\cS$ is the set of all $u(x)$ such that $u(x)$ is continuous and $u(0) = 0$.''
-
-
 \begin{tcolorbox}[title= Principle of minimum potential energy - mathy]
 The equilibrium displacement field, $\us$, is the minimizer over all 
 $u(x) \in \cS$ of: 
@@ -267,14 +222,10 @@ $u(x) \in \cS$ of:
 \cS &=& \left\{ u(x) | u(x)\in C^0[0,L];\  u(0) = u_o. \right\}
 \eea
 \end{tcolorbox}
-
-
 \subsubsection{Admissible variation fields} 
-
 Pick any $u(x) \in \cS$.  Then $v(x)$ is an {\em admissible variation} 
 if (and only if) $u(x) + v(x) \in \cS$.  We let $\cV$ denote the set of all 
 admissible variations.  
-
 \begin{tcolorbox}[title=Exercise:]
 Use the definition given to show that 
 \beq
@@ -282,19 +233,14 @@ Use the definition given to show that
 \plabel{V}
 \eeq
 \end{tcolorbox}
-
-
 \subsection{Euler Lagrange Equations:  The connection between the strong form 
 and the principle of minimum potential energy} 
-
 We let $\us\in \cS$ denote the minimizer of $\pit[u]$.  
 Our goal here is to show that $\us$ satisfies Strong Form 2.  
-
 We begin by choosing an arbitrary function $v(x) \in \cV$.  
 Once we pick that function, it's picked.  It doesn't change.  
 To say that it's arbitrary means that it doesn't matter which one we pick, 
 but we have to pick one.  In this example, we can imagine it's $v(x) = 8x$.  
-
 We next define the function $F(\alpha)$, where $\alpha$ is an arbitrary 
 scalar, and 
 \beq
@@ -345,7 +291,6 @@ $\left.\frac{dF}{d\alpha}\right|_{\alpha = 0} = 0$.  Computing gives us:
 \eea
 To see the connection between (\ref{102}) and (\ref{11}), 
 we use integration by parts on the first term in (\ref{102}).  
-
 Integration by parts is really the product rule of differentiation backwards. 
 Remembering this helps when applying it in multi-dimensional contexts.  
 Therefore, in order to integrate (\ref{102}) by parts, we first rewrite 
@@ -399,12 +344,9 @@ v(x) \frac{d}{dx}  \left( E \frac{d\us}{dx}  \right)
 A\, dx  
 \plabel{104}
 \eea
-
-
 \begin{tcolorbox}[title= Exercise]
 Get (\ref{104}) from the line above.  When you know how to do it, it's one line.  
 \end{tcolorbox}
-
 We now use (\ref{104}) to rewrite equation (\ref{102}) in the form: 
 \beq
 - \int_0^L 
@@ -430,7 +372,6 @@ Since (\ref{105}) holds for any choice of $v(x) \in \cV$, then we can conclude:
 \eea
 Equations (\ref{106}) and (\ref{107}) are the Euler-Lagrange equations resulting from 
 minimizing the functional $\pit[u]$.  
-
 We see that $\us(x)$ 
 satisfies differential equation (\ref{106}), which is the same differential 
 equation as (\ref{11}).  Furthermore, $\us(x)$ satisfies boundary condition 
@@ -439,16 +380,12 @@ Since $\us(x)$ is required to be in the set $\cS$, then $\us$ also satisfies (\r
 Therefore $\us$ satisfies equations (\ref{11}, \ref{12}, \ref{13}) of Strong Form 2.  
 Since the solution of Strong Form 2 is unique, then its solution also minimizes 
 $\pit[u]$ over all functions in $\cS$.  
-
 In the process of minimizing $\pi[u]$, we found that boundary condition 
 (\ref{107}) (or (\ref{13})) resulted naturally as a consequence of the minimization.  By contrast, 
 boundary condition (\ref{12}) is an essential part of the formulation of the minimization problem. 
 Without boundary condition (\ref{12}), the minimization problem wouldn't make sense; there would be 
 no minimum.  Therefore, (\ref{12}) is called an {\em essential boundary condition}, while (\ref{13}) 
 is called a {\em natural boundary condition}. 
-
-
-
 \begin{tcolorbox}[title= Summary] 
 The function $\us(x)\in \cS$ minimizes the total potential energy $\pit[u]$, compared to all 
 other functions in $\cS$.  The minimizing function $\us$ 
@@ -456,12 +393,8 @@ satisfies equations (\ref{11}, \ref{12}, \ref{13}) of Strong Form 2,
 and likewise, the solution of Strong Form 2 minimizes 
 $\pit[u]$. 
 \end{tcolorbox}
-
-
 \section{Weak formulation}
-
 \subsection{Obtained from minimum potential energy}
-
 Above we showed that Strong Form 2 follows from equation (\ref{102}).  
 We divide (\ref{102}) through by the constant area $A$ and write that result here 
 for convenience: 
@@ -475,7 +408,6 @@ for convenience:
 \eeq
 Equation (\ref{weak1}) is known as the weak form the boundary value problem.  More precisely, 
 the weak form of the boundary value problem is:  
-
 \begin{tcolorbox}[title= Weak Form] 
 Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
 find $u(x) \in \cS$ such that for all $v(x) \in \cV$, 
@@ -488,16 +420,7 @@ find $u(x) \in \cS$ such that for all $v(x) \in \cV$,
 \plabel{weak}
 \eeq
 \end{tcolorbox}
-
-
-
-
-
 \subsection{Derivation from Strong Form 2}
-
-
-
-
 \begin{tcolorbox}[title= Exercise: Derive the weak form from the strong form] 
 Let $v \in \cV$.  Compute $\int_0^L (\ref{11})\,  v(x) dx$.  
 Integrate by parts and simplify to derive (\ref{weak}).  
@@ -508,222 +431,226 @@ Can you identify where each of these eqns is used?
 (\ref{12}) is subtle.
 \end{tcolorbox}
 
+Let's first express $\int_0^L(\ref{11})v(x)dx$ using ($\ref{11}$):
 
+\beq
+\int_0^L \left[ \frac{d}{dx} \left( E \frac{du}{dx} \right) v(x) + f(x)v(x) \right]dx = 0
+\eeq
 
+{\em Evaluate chain rule:}
+
+\bea
+\frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) &=&
+\frac{d}{dx} \left( E \frac{du}{dx} \right) v(x) +
+E \frac{du}{dx} \frac{dv}{dx} \\
+\frac{d}{dx} \left( E \frac{du}{dx} \right) v(x) &=&
+\frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) -
+E \frac{du}{dx} \frac{dv}{dx}
+\eea
+
+\beq
+\int_0^L \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) - E \frac{du}{dx} \frac{dv}{dx} + fv(x) dx = 0
+\eeq
+
+{\em Evaluate the following integral:}
+\beq
+\int_0^L \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) = \left. \left( E \frac{du}{dx} v(x) \right) \right]_{x=0}^{x=L} = 
+\left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) - 
+\left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right)
+\eeq
+
+\beq
+\left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) - 
+\left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right) - 
+\int_0^L \left[ E \frac{du}{dx} \frac{dv}{dx} - fv(x) \right] dx = 0
+\eeq
+
+{\em The first term can be simplified using ($\ref{13}$):}
+
+\beq
+\left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) = 
+\sigo \cdot v(L)
+\eeq
+
+{\em Our essential boundary condition is defined in ($\ref{12}$). This information helps us simplify the second term in (45) since $v(x)$ must be 0 at all points defined by ($\ref{12}$) $\therefore$ $v(0) = 0$ as articulated in (24)}
+
+\beq
+v(0) = 0 \therefore \left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right) = 0
+\eeq
+
+{\em Finally,}
+
+\beq
+\sigo \cdot v(L) - \int_0^L \left[ E \frac{du}{dx} \frac{dv}{dx} - fv(x) \right] dx = 0
+\eeq
+
+{\em Rewriting slightly, we can see the same form presented in ($\ref{weak}$):}
+
+\beq
+\int_0^L E \frac{du}{dx} \frac{dv}{dx} - 
+f(x) \cdot v(x) dx -
+\sigo \cdot v(L) = 0
+\eeq
 
 \section{A mixed weak form}
-
 \subsection{Derivation from Strong Form 1}
-
 \subsection{Derivation from a mixed variational principle}
-
-
-
-
-
 \section{Non-linear Weak Form}
-
 Here we will explore an example in which we consider the material behavior of the rod as nonlinear, as defined below:
 \\
 {\em Constitutive relationship:}
 \beq
 \sigma = E \epsilon e^{\beta \epsilon}
 \eeq
-
 \begin{tcolorbox}[title= Nonlinear Strong Form]
 Given $u_0$, $ \sigma_0 $, $E$, and $f(x)$, for $0<x<L$, find $u(x)$, $\epsilon(x)$,$\sigma(x)$ that satisfy:
-
 \beq
 \frac{d}{dx} \left( E \frac{du}{dx} e^{\beta \frac{du}{dx}} \right) + f = 0
 \eeq
-
 \beq
 u(0) = u_0
 \eeq
-
 \beq
 \left. E\frac{du}{dx} \right|_{x=L} = \sigo
 \eeq
-
 \end{tcolorbox}
-
 \beq
 \int_0^L \sigma(\epsilon) \frac{dv}{dx} - fvdx - P v(L) = 0
 \eeq
-
 \beq
 \int_0^L EA \frac{du}{dx} e^{\beta \frac{dv}{dx}} \frac{dv}{dx} - fvdx - P v(L) = 0
-\plabel{nonlin_weak}
+\plabel{nlwf}
 \eeq
-
 {\em Linear shape function:}
 \beq 
 N(x) = \begin{bmatrix} 1-\frac{x}{L} & \frac{x}{L} \end{bmatrix} ;
 B = \frac{dN}{dx} = \begin{bmatrix} \frac{L-1}{L} & \frac{1}{L} \end{bmatrix}
 \eeq 
-
 \subsection{Single Finite Element Approximation}
-
 \beq
 u(x) \approx U_1N_1(x) + U_2N_2(x)
 \eeq
-
 \beq
 v(x) \approx V_1N_1(x) + V_2N_2(x)
 \eeq
-
 \beq 
 N_1(x) = \frac{L-x}{L};
 N_2(x) = \frac{x}{L};
 B_2 = \frac{1}{L}
 \eeq 
-
 \beq 
 \int_0^L \left[ EAU_2B_2e^{\beta U_2B_2}V_2B_2 - f V_2N_2 \right] dx - P V_2 N(L)
 \eeq 
-
 {\em Solve integral and simplify:}
 \beq 
 AEL \frac{U_2}{L^2}e^{\beta U_2 /L} = P
 \eeq  
-
-
 Newton's method will be used to solve for $U_2$
-
 \beq
 F(U_2) = AEL \frac{U_2}{L^2}e^{\beta U_2 /L} - P = 0
 \eeq
-
 {\em First guess:}
 \beq
 U_2 = U_2^{(0)} = 0
 \plabel{newt-guess}
 \eeq
-
 {\em Approximate $F(U_2)$ using first guess $(U_2^{(0)})$}
 \beq
 F(U_2) = F(U_2^{(0)} + \delta U_2)
 \eeq
-
 {\em Using a first-order Taylor Series expansion, (\ref{newt-guess}) can be rewritten as such:}
 \beq
 F(U_2) \approx F(U_2^{(0)}) + \frac{dF}{dU}\delta U_2
 \eeq
-
 \beq 
 F'(U) = \frac{AE}{L} e^{\beta U/L} \left( 1 + U\frac{\beta}{L}\right)
 \eeq 
-
 {\em At $U=0$ (our first approximation is analogous to linear elastic deformation):}
 \beq 
 F'(0) = \frac{AE}{L} \therefore \delta U = \frac{PL}{AE}
 \eeq 
-
 {\em For the next Newton iteration (using $\delta U$ as our guess) :}
 \beq 
 F'(U^{(1)} = P \left( e^{\beta P/AE} -1 \right)
 \eeq 
-
 \beq 
 F'(U^{(1)} + \left. \frac{dF}{dU} \right|_{U^{(1)}} \delta U = 0
 \eeq 
-
 \beq 
 P \left( e^{\beta P/AE} -1 \right) + \frac{AE^*}{L} \delta U = 0; E^* = E e^{\beta P/AE} \left( 1 + \frac{\beta P}{AE} \right)
 \eeq 
-
 \beq 
 \delta U = \frac{-PL}{AE^*} \left( e^{\beta P/AE} - 1 \right)
 \eeq 
-
 \subsection{Finite Element Approximation (2 elements)}
-Next, let's consider the same nonlinear elastic rod solved with two finite elements. The weak form can be restated from (ref{nonlin_weak}):
-
+Next, let's consider the same nonlinear elastic rod solved with two finite elements. The weak form can be restated from (\ref{nlwf}):
 \begin{tcolorbox}[title= Nonlinear Weak Form]{
 % \fbox{
-Given $u_o$, $\sigo$, $E$, $\beta$ and $f(x)$,  for $0 < x < L$, 
-find $u^*(x) \in \cS$ such that for all $v(x) \in \cV$, 
+Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
+find $u^* \in \cS$ such that for all $v(x) \in \cV$, 
 \beq
 \int_0^L \left[
-E \frac{du^*}{dx} e^{\beta \frac{du^*}{dx}} \frac{dv}{dx} - f(x)v(x)
-\right] dx - \sigo v(L) = 0
+E \frac{du^*}{dx} e^{\beta \frac{du^*}{dx}} \frac{dv}{dx} - 
+f(x) \cdot v(x)
+\right] dx - \sigo \cdot v(L) = 0
 \eeq
 }
 \end{tcolorbox}
-
 \beq 
 u(x) \approx U_0N_0(x) + U_1N_1(x) + U_2N_2(x)
 \eeq 
-
 \beq 
 v(x) \approx V_0N_0(x) + V_1N_1(x) + V_2N_2(x)
 \eeq 
-
 {\em Impose essential boundary conditions:}
 \beq 
 u(0) \approx U_0 = 0; v(0) \approx V_0 = 0
 \eeq 
-
 \beq 
 u(x) \approx U_1N_1(x) + U_2N_2(x); v(x) \approx V_1N_1(x) + V_2N_2(x)
 \eeq 
-
 \beq 
 \sum_{elms} \int_{L_e} \left[ EA \frac{du}{dx} e^{\beta \frac{du}{dx}} \frac{dv}{dx} - fv(x) \right] dx - Pv(L)
 \eeq 
-
 {\em Assume no body forces ($f=0$)}
-
 \begin{align*}
 \int_0^{h_1} \left[ EA \left(U_1B_1 \right) e^{\beta \left(U_1B_1 \right)} V_1B_1 \right] dx
 \\
 + \int_0^{h_2} \left[ EA \left(U_1B_1 +U_2B_2 \right) e^{\beta \left(U_1B_1 + U_2B_2\right)} \left( V_1B_1 + V_2 B_2 \right) \right] dx - P \left[ V_1N_1(L) + V_2 N_2(L) \right]
 \end{align*}
-
 \beq
 B_1^{(1)} = 1/h_1; B_1^{(2)} = -1/h_2; B_2^{(2)} = 1/h_2
 \eeq
-
 \beq
 \int_0^{h_1} \left[ EA \frac{U_1}{h_1}e^{\beta U_1/h_1}\frac{V_1}{h_1} \right]dx + \int_0^{h_2} \left[ \frac{EA}{h_2}(-U_1+U_2) e^{\frac{\beta}{h_2}(-U_1+U_2)}\frac{(-V_1+V_2)}{h_2}  \right]dx - P(V_1(0) + V_2(1))
 \eeq
-
 \beq
 \left[ EA \frac{U_1}{h_1}e^{\beta U_1/h_1}V_1 \right] + \left[ \frac{EA}{h_2}(-U_1+U_2) e^{\frac{\beta}{h_2}(-U_1+U_2)}(-V_1+V_2) \right] - P(V_2) = 0
 \eeq
-
 \beq
 U'=U_2-U_1 ; V'=V_2-V_1
 \eeq
-
 \beq
 EA \frac{U_1}{h_1}e^{\beta U_1/h_1}V_1 + \frac{EA}{h_2}U' e^{\beta U'/h_2}V' - P(V_2) = 0
 \eeq
-
 {\em Equation 1:}
 \beq
 V_1 = 1; V_2 = 0
 \eeq
-
 \beq
 F_1(U_1,U_2) = \frac{EAU_1}{h_1}e^{\beta U_1/h_1} - \frac{EAU'}{h_2}e^{\beta U'/h_2} = 0
 \eeq
-
 {\em Equation 2:}
 \beq
 V_1 = 0; V_2 = 1
 \eeq
-
 \beq
 F_2(U_1,U_2) = \frac{EAU'}{h_2}e^{\beta U'/h_2} - P = 0
 \eeq
-
 Newton's method iterations:
 Given $F_1(U_1,U_2)$ and $F_2(U_1,U_2)$, find $U_1^*$ and $U_2^*$ so that $F_1(U_1^*,U_2^*) = 0$ and $F_2(U_1^*,U_2^*)=0$
 \\
 For the first Newton's method iteration, we will be solving solving the following linear problem to find $\delta U_1$ and $\delta U_2$. Our first guess for $U^*$ is 0, and we will repeat this process for the next iteration with an improved guess using $\delta U_1$ and $\delta U_2$.
-
-
 \beq
 \begin{bmatrix} \frac{\partial F_1}{\partial U_1} & \frac{\partial F_1}{\partial U_2} \\
                 \frac{\partial F_2}{\partial U_1} & \frac{\partial F_2}{\partial U_2}
@@ -737,36 +664,27 @@ For the first Newton's method iteration, we will be solving solving the followin
 \begin{bmatrix} 0 \\ 0
 \end{bmatrix}
 \eeq
-
 {\em The four components for $\frac{\partial F}{\partial U}$:}
 \beq
 \frac{\partial F_1}{\partial U_1} = \frac{EA}{h_1} e^{\frac{\beta U_1}{h_1}} \left( \frac{U_1 \beta}{h_1} + 1 \right) + \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
-
 \beq
 \frac{\partial F_1}{\partial U_2} = - \frac{EA}{h_2} e^{\frac{\bets U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
-
 \beq
 \frac{\partial F_2}{\partial U_1} = - \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
-
 \beq
 \frac{\partial F_2}{\partial U_2} = \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
-
 {\em Evaluating $F(U_1,U_2)$ ($U^{(0)} = 0$):}
-
 \beq
 F_1(U_1,U_2) \approx F_1(U_1^{(0)},U_2^{(0)}) + \frac{dF_1}{dU} \delta U = \frac{\partial F_1}{\partial U_1} \delta U_1 + \frac{\partial F_1}{\partial U_2} \delta U_2
 \eeq
-
 \beq
 F_2(U_1,U_2) \approx F_2(U_1^{(0)},U_2^{(0)}) + \frac{dF_2}{dU} \delta U = -mg + \frac{\partial F_2}{\partial U_1} \delta U_1 + \frac{\partial F_2}{\partial U_2} \delta U_2
 \eeq
-
 {\em Plugging these into the above system:}
-
 \beq
 \begin{bmatrix}
   \frac{EA}{h_1} + \frac{EA}{h_2} & - \frac{EA}{h_2} \\
@@ -782,34 +700,26 @@ F_2(U_1,U_2) \approx F_2(U_1^{(0)},U_2^{(0)}) + \frac{dF_2}{dU} \delta U = -mg +
 0 \\ 0
 \end{bmatrix}
 \eeq
-
 {\em Solving this system yields the following definitions for $\delta U_1$ and $\delta U_2$:}
 \beq
 \delta U_1^{(0)} = \frac{Ph_1}{EA}
 \eeq
-
 \beq
 \delta U_2^{(0)} = \frac{P}{EA} (h_1+h_2)
 \eeq
-
 {\em Let's now improve our initial guess:}
-
 \beq
 U^{(1)} = U^{(0)} + \delta U^{(0)}
 \eeq
-
 \beq
 U' = U_2 - U_1 = \frac{Ph_2}{EA}
 \eeq
-
 \beq
 F_1 (U_1^{(1)}, U'^{(1)}) = F_1 \left( \frac{Ph_1}{EA},\frac{Ph_2}{EA} \right) = 0
 \eeq
-
 \beq
 F_2 (U_1^{(1)}, U'^{(1)}) = F_2 \left( \frac{Ph_1}{EA},\frac{Ph_2}{EA} \right) = P \left( e^{\frac{\beta P}{EA}} - 1 \right)
 \eeq
-
 \beq
 \begin{bmatrix}
 \left[ \frac{1}{h_1} + \frac{1}{h_2} \right] EAe^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) & - \frac{EA}{h_2}e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \\
@@ -825,27 +735,19 @@ F_2 (U_1^{(1)}, U'^{(1)}) = F_2 \left( \frac{Ph_1}{EA},\frac{Ph_2}{EA} \right) =
 0 \\ 0
 \end{bmatrix}
 \eeq
-
 {\em Our unknowns $\delta U^{(1)}$ can be solved using the above linearly independent system of  equations}
-
 \beq
 \delta U_2^{(1)} = \frac{h_1 + h_2}{h_1} \delta U_1^{(1)}
 \eeq
-
 \beq
-\delta U_1^{(1)} = P \left( -e^{\frac{\beta P}{EA}} + 1 \right) \left[ \frac{EA}{h_2} e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \left( \frac{h_1 + h_2}{h_1} - 1 \right) \right]^{-1}
+\delta U_1^{(1)} = \frac{\sigo h_1}{E} \left(1 -e^{\frac{\beta \sigo}{E}} \right) \left[ e^{\frac{\beta \sigo}{E}} \left( \frac{\beta \sigo}{E} + 1 \right) \right]^{-1}
 \eeq
-
 \beq
-\delta U_2^{(1)} = P \left( -e^{\frac{\beta P}{EA}} + 1 \right) \left( \frac{h_1 + h_2}{h_1} \right) \left[ \frac{EA}{h_2} e^{\frac{\beta P}{EA}} \left( \frac{\beta P}{EA} + 1 \right) \left( \frac{h_1 + h_2}{h_1} - 1 \right) \right]^{-1}
+\delta U_2^{(1)} = \frac{\sigo (h_1 + h_2)}{E}
+\left(1 -e^{\frac{\beta \sigo}{E}} \right) \left[ e^{\frac{\beta \sigo}{E}} \left( \frac{\beta \sigo}{E} + 1 \right) \right]^{-1}
 \eeq
-
-
-
 \section{Newton's method applied to functionals and functions} 
-
 \subsection{Newton's method for a scalar unknown}
-
 Here we suppose we wish to find $\xs$, the solution of the nonlinear equation 
 \beq
 F(\xs) = 0. 
@@ -853,17 +755,15 @@ F(\xs) = 0.
 \eeq
 We know that $\xs \approx x_0$, but this approximation is (for whatever reason) 
 not satisfactory for us.  We seek to improve it.  
-
 We can improve our approximation for $\xs$ by approximating the equation itself.  
 To that end, we use a truncated Taylor expansion about the point $x_0$: 
 \beq
 F(x) \approx F^L(x;x_0) = F(x_0) + \left.\frac{dF}{dx}\right|_{x=x_0} (x-x_0).
 \plabel{n2}
 \eeq
-Here, $F^L(x;x_0)$ stands for the ``linear approximation'' to $F(x)$ around 
+Here, $F^L(x;x_0)$ stands for the ``linear approximation" to $F(x)$ around 
 the point $x=x_0$. 
 Since $F^L$ is a linear function, it is easy to find its root.  
-
 Therefore, we choose $x_1$, our improved approximation to $\xs$, to be the solution of 
 \beq
 F^L(x_1;x_0) = 0. 
@@ -888,7 +788,6 @@ $F(x)$ has to have nice properties in the neighborhood of $\xs$, {\em and} our i
 needs to be near enough to $\xs$ that those nice properties still apply to $x_0$.  
 It's not always practical to check those properties, but we can to things to make sure our 
 intial guess is very close to $\xs$.} 
-
 Having figured out how to improve our initial guess once, we can repeat the process to 
 get a sequence of (we hope) more accurate approximations to $\xs$, by solving: 
 \bea
@@ -903,10 +802,7 @@ Here, we introduced the update, $\delta x_{n+1}$, defined as:
 \delta x_{n+1} =  x_{n+1} -x_{n}. 
 \plabel{n8} 
 \eeq
-
-
 \subsection{Newton's method for multiple scalar unknowns}
-
 Now we suppose we wish to find $\bxs = [\xs_1, \xs_2, \xs_3, \ldots, \xs_{N_{unk}}]^T$, 
 the column vector that represents the $N_{unk}$ 
 solutions of the $N_{eqns}$ simultaneous nonlinear equations: 
@@ -918,7 +814,6 @@ Typically, we need to have the same number of equations as unknowns, and so we
 will require $N_{unk} = N_{eqns}$.  
 As before, we will suppose that 
 we know $\bxs \approx \bx_n$, and seek $\bx_{n+1}$ which is an improvement to this approximation 
-
 To that end, we again use a truncated Taylor expansion about the point $\bx_n$, 
 \beq
 F_j(\bx) \approx F_j^L(\bx;\bx_n) = F_j(\bx_n) + \sum_{i = 1}^{N_{unk}}\left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} (x_i - x_{i_n}). 
@@ -933,11 +828,10 @@ represent entries in a square matrix:
 \J_{ji} &=& \left.\frac{\partial F_j}{\partial x_i}\right|_{\bx=\bx_n} . 
 \plabel{n13} 
 \eea
-This matrix is often referred to as the ``Jacobian matrix'' for the system of equations.  
+This matrix is often referred to as the ``Jacobian matrix" for the system of equations.  
 (It's not related to the Jacobian of the deformation from continuum mechanics, 
 except that both involve the derivative of a bunch of functions with respect to a 
 bunch of variables.)
-
 As with the linear case, we choose our next approximation by requiring it to solve the 
 linear equations, linearized about the current approximation: 
 \beq
@@ -945,7 +839,6 @@ F_j^L(\bx_{n+1};\bx_n) = 0, \qquad j = 1, 2, \ldots, N_{eqns}.
 \plabel{n14}
 \eeq
  
-
 We can write (\ref{n14}) out in more detail but still succinctly by introducing 
 the column vector $\bF_{n} = [ F_1(\bx_n), F_2(\bx_n), \ldots, F_{N_{eqns}}(\bx_n)] ^T$. 
 Similarly, we can introduce a vector of unknowns, $\delta \bx_{n+1}$, whose entries are given by: 
@@ -958,11 +851,7 @@ Then, equation (\ref{n14}) can be written as the matrix equation:
 \J \delta \bx_{n+1} = -\bF_{n} . 
 \plabel{n16} 
 \eeq
-
-
-
 \subsection{Newton's method with function unknowns} 
-
 First we recall our nonlinear weak form: 
 \begin{tcolorbox}[title= Nonlinear Weak Form] 
 Given $u_o$, $\sigo$, $E$, $\beta$,  and $f(x)$,  for $0 < x < L$, 
@@ -973,7 +862,6 @@ find $\us(x) \in \cS$ such that for all $v(x) \in \cV$,
 \plabel{nonlin_weak}
 \eeq
 \end{tcolorbox}
-
 We can rewrite (\ref{nonlin_weak}) using the abstract notation: 
 \bea
 a(\us,v) &=& l(v)
@@ -983,7 +871,6 @@ a(u,v) &=& \int_0^L E \frac{du}{dx} e^{\beta \frac{du}{dx}} \, \frac{dv}{dx} \, 
 l(v) &=& f(x)\, v(x)\, dx + \sigo v(L) 
 \plabel{n22} 
 \eea
-
 We suppose we have an initial approximation, $u_n(x)$, for the solution $\us(x)$. 
 We linearize equation (\ref{n21}) around $u = u_n$ as follows: 
 \bea
@@ -993,7 +880,6 @@ b(\delta u, v; u_n) &=& \lim_{\alpha \rightarrow 0} \frac{d}{d\alpha}
 			a(u_n + \alpha \delta u,v) 
 \plabel{n24} 
 \eea
-
 In perfect analogy with equation (\ref{n14}), we find the update by solving {\em the linear 
 problem}: 
 \beq
@@ -1016,12 +902,7 @@ Update:
 \eeq
 Let $n \leftarrow n+1$.  Loop to (\ref{n26}). 
 \end{tcolorbox}
-
-
-
-
 \subsubsection{Specific form of $b(\delta u, v; u_n)$} 
-
 To figure out what $b(\delta u, v; u_n)$ is for our problem, we need to use 
 its definition (\ref{n24}) and the explicit expression for $a(u,v)$ in (\ref{n21}). 
 \bea
@@ -1072,26 +953,7 @@ e^{\beta \frac{d u_n}{dx}}
 \left[1 + \beta \frac{d u_n }{dx} \right] \frac{d\delta u}{dx} \, \frac{dv}{dx} \, dx 
 \plabel{inc_weak_form}
 \eea
-
 \begin{tcolorbox}[title= Exercise]
 Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}). 
 \end{tcolorbox}
-
-
-
-
-
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
