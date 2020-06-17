@@ -23,8 +23,11 @@
 \def\eea{\end{eqnarray}}
 \def \be{\mbox{\boldmath{$e$}}}
 \def \u{\mbox{\boldmath{$u$}}}
+\def \v{\mbox{\boldmath{$v$}}}
 \def \bx{\mbox{\boldmath{$x$}}}
 \def \ep{\epsilon}
+\def \bep{\mbox{\boldmath{$\epsilon$}}}
+\def \bsig{\mbox{\boldmath{$\sigma$}}}
 \def \sigo{\sigma_{o}}
 \def \pie{\Pi_{Elastic}}
 \def \pit{\Pi_{Total}}
@@ -589,13 +592,14 @@ P \left( e^{\beta P/AE} -1 \right) + \frac{AE^*}{L} \delta U = 0
 Next, let's consider the same nonlinear elastic rod solved with two finite elements. The weak form can be restated from (\ref{nlwf}):
 \begin{tcolorbox}[title= Nonlinear Weak Form]{
 % \fbox{
-Given $u_o$, $\sigo$, $E$,  and $f(x)$,  for $0 < x < L$, 
+Given $u_o$, $\sigo$, $E$, $\beta$,  and $f(x)$,  for $0 < x < L$, 
 find $u^* \in \cS$ such that for all $v(x) \in \cV$, 
 \beq
 \int_0^L \left[
 E \frac{du^*}{dx} e^{\beta \frac{du^*}{dx}} \frac{dv}{dx} - 
 f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
+\plabel{nlweak}
 \eeq
 }
 \end{tcolorbox}
@@ -672,7 +676,7 @@ For the first Newton's method iteration, we will be solving solving the followin
 \frac{\partial F_1}{\partial U_1} = \frac{EA}{h_1} e^{\frac{\beta U_1}{h_1}} \left( \frac{U_1 \beta}{h_1} + 1 \right) + \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
 \beq
-\frac{\partial F_1}{\partial U_2} = - \frac{EA}{h_2} e^{\frac{\bets U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
+\frac{\partial F_1}{\partial U_2} = - \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
 \eeq
 \beq
 \frac{\partial F_2}{\partial U_1} = - \frac{EA}{h_2} e^{\frac{\beta U'}{h_2}} \left( \frac{U' \beta}{h_2} + 1 \right)
@@ -959,4 +963,154 @@ e^{\beta \frac{d u_n}{dx}}
 \begin{tcolorbox}[title= Exercise]
 Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}). 
 \end{tcolorbox}
+
+
+
+\section{Exposing the structure of our formulation to make it easier to go to $3D$}
+
+\subsection{Weakform}
+
+The nonlinear weak form (\ref{nlweak}) can be written: 
+\beq
+\int_0^L \left[
+\sigma\left( \epsilon \right)
+\frac{dv}{dx} - 
+f(x) \cdot v(x)
+\right] dx - \sigo \cdot v(L) = 0
+\plabel{nlweak}
+\eeq
+or 
+\beq
+\int_0^L \left[
+\sigma\left( \frac{du}{dx} \right)
+\frac{dv}{dx} - 
+f(x) \cdot v(x)
+\right] dx - \sigo \cdot v(L) = 0
+\plabel{nlweak}
+\eeq
+
+
+
+\subsection{Newton iteration:}
+
+Letting $u\leftarrow u + \delta u$: 
+\bea
+\int_0^L \left[
+\sigma\left( 
+\frac{du}{dx} 
++ \frac{d\delta u}{dx} 
+\right)
+\frac{dv}{dx} 
+\right] dx  
+&=& 
+\int_0^L \left[
+\sigma\left( 
+\frac{du}{dx} 
+\right)
+\frac{dv}{dx} 
+\right] dx  
+\nonumber \\ 
+&& + 
+\int_0^L \left[
+\frac{d \sigma}{d\epsilon}
+\left( 
+\frac{du}{dx} 
+\right)
+ \times \frac{d\delta u}{dx} 
+\frac{dv}{dx} 
+\right] dx  
+\plabel{200}  \\ 
+&=& 
+\int_0^L \left[
+\sigma\left( 
+\frac{du}{dx} 
+\right)
+\frac{dv}{dx} 
+\right] dx  
+\nonumber \\ 
+&& + 
+\int_0^L \left[
+ E^* \times \frac{d\delta u}{dx} 
+\frac{dv}{dx} 
+\right] dx  
+\plabel{201}  \\ 
+\mbox{where} \qquad 
+ E^* 
+&=& 
+\frac{d \sigma}{d\epsilon}
+\left( 
+\frac{du}{dx} 
+\right)
+\plabel{202}  \\ 
+&=& \mbox{tangent\ modulus}
+\eea
+
+
+\subsection{Extending to multi-dimensions}
+
+\begin{itemize}
+\item 
+$\int_0^L \, dx \leftarrow \int_V \, dV$. 
+\item 
+$ \sigma \leftarrow \sigma_{ij}$.
+\item 
+$ \epsilon \leftarrow \epsilon_{ij}$.
+\item 
+$ \frac{d v}{d x} \leftarrow \frac{\partial v_{i}}{\partial x_{j}} $. 
+\item 
+$ 2 \bep = \nabla \u + (\nabla \u)^T$. 
+\item 
+$ 2 \epsilon_{ij}  = \frac{\partial u_{i}}{\partial x_{j}} + \frac{\partial u_{j}}{\partial x_{i}}. $
+\item 
+$ \frac{d \sigma}{d\epsilon} \leftarrow 
+\frac{\partial \sigma_{ij}}{\partial\epsilon_{kl}} $. 
+\item 
+$u \approx u^h = \sum_{A} d_A N_A(x)$ becomes 
+$u_i \approx u_i^h = \sum_{A} d_{iA} N_A(x)$. 
+\end{itemize}
+
+
+\subsection{Weak form in multiple dimensions} 
+
+
+\begin{tcolorbox}[title= Nonlinear Weak Form]{
+% \fbox{
+Given $u_{oi}$, $T_i$, the function $\sigma(\epsilon)$,  and $f_i(x)$,  
+find $u^* \in \cS$ such that for all $v(x) \in \cV$, 
+\beq
+\int_V
+\left[
+\sigma_{ij}\left( \bep
+\right)
+\frac{\partial v_i}{\partial x_j} - 
+f_i(x) v_i(x)
+\right] dV - 
+\int_{\Gamma_T} 
+T_i \cdot v_i \,  dS
+= 0
+\plabel{3Dweak}
+\eeq
+where
+\bea
+\cS &=& \left\{ \u(x) | \u(x)\in C^0[V];\  u_i|_{\Gamma_u} = u_{oi}. \right\}
+\plabel{S3} \\ 
+\cV &=& \left\{ \v(x) | \v(x)\in C^0[V];\  v_i|_{\Gamma_u} = 0. \right\}
+\plabel{V3}
+\eea
+}
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
