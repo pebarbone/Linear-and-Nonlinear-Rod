@@ -14,7 +14,7 @@
 %  Toggle to label equations 
 %
 \def \plabel#1 {\label{#1} }
-% \def \plabel#1 {\label{#1} \qquad{#1} }
+\def \plabel#1 {\label{#1} \qquad{#1} }
 %
 %---------------------------------------------------------
 \def\beq{\begin{equation}}
@@ -28,6 +28,8 @@
 \def \ep{\epsilon}
 \def \bep{\mbox{\boldmath{$\epsilon$}}}
 \def \bsig{\mbox{\boldmath{$\sigma$}}}
+\def \barsig{\mbox{{$\overline\sigma$}}}
+\def \barep{\mbox{{$\overline{\ep}$}}}
 \def \sigo{\sigma_{o}}
 \def \pie{\Pi_{Elastic}}
 \def \pit{\Pi_{Total}}
@@ -504,6 +506,7 @@ Here we will explore an example in which we consider the material behavior of th
 {\em Constitutive relationship:}
 \beq
 \sigma = E \epsilon e^{\beta \epsilon}
+\plabel{50}
 \eeq
 \begin{tcolorbox}[title= Nonlinear Strong Form]
 Given $u_0$, $ \sigma_0 $, $E$, and $f(x)$, for $0<x<L$, find $u(x)$, $\epsilon(x)$,$\sigma(x)$ that satisfy:
@@ -965,6 +968,88 @@ Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}).
 \end{tcolorbox}
 
 
+\section{Dimensions and scaling of stress and strain our $1D$ model problem}
+
+Recall equation (\ref{50}) that gives the stress in terms of the strain as:
+\beq
+\sigma = E \ep e^{\beta \ep}. 
+\plabel{50.2}
+\eeq
+
+\begin{tcolorbox}[title= Exercise]{
+		Show that the stress (\ref{50.2}) corresponds to the strain energy density (in $1D$): 
+		\beq 
+		W = \frac{E}{\beta^2}\left[ 1 + \exp(\beta\ep)(\beta\ep - 1) \right] 
+		\plabel{strainE}
+		\eeq
+		}
+\end{tcolorbox}
+
+%\begin{tcolorbox}[title= Exercise]{
+%		Show that the total potential energy for our $1D$ model problem is given by
+%		\beq 
+%		U[u(x)] = \int_0^L \frac{E}{\beta^2}\left[ 1 + \exp(\beta\frac{du}{dx})(\beta\frac{du}{dx} - 1) \right] \, dx  - \sigma_o u(L) 
+%		\plabel{totalE}
+%		\eeq
+%		}
+%\end{tcolorbox}
+%
+
+We note that equation (\ref{50.2}) can alternatively be written as
+\beq
+\frac{\sigma\beta}{E} =  (\beta\ep) e^{(\beta \ep)}. 
+\plabel{50.3}
+\eeq
+In equation (\ref{50.3}), we see that $\ep$ appears ONLY when multiplied by $\beta$.  Similarly, $\sigma$ appears 
+ONLY in the form on the left.  Also, this equation is non-dimensional, in that each group of parameters is 
+non-dimensional.  These observations motivate the introduction of two new variables, $\barsig$ and $\barep$ 
+such that: 
+\bea
+	\barsig &=& \barep e^{\barep} \plabel{50.5} \\ 
+	\mbox{where:} && \nonumber \\ 
+	\barsig &=& \frac{\sigma\beta}{E}  \\ 
+	\barep  &=& \beta\ep. 
+\eea
+
+\begin{tcolorbox}[title= Exercise]{
+		Create some examples and/or an argument that can be used 
+		to teach an undergraduate why equation (\ref{50.5}) 
+		can be used to think about stress and strain for {\em any} 
+		choice of $E$ and $\beta$.  
+		
+		Example questions: 
+		\begin{enumerate}
+			\item For example, how big does the $\ep$ need to be to see 
+		significant curvature in the stress-strain curve?  
+			\item How big is the stress at that strain level?  
+		\end{enumerate}
+		}
+\end{tcolorbox}
+
+
+%%%% YOU CAN IGNORE THESE BITS: 
+%A bit of notation.  We will here use square brackets to denote the dimensions of a quantity.  
+%For example, if $P$ is a force and $d$ is a distance, then we might write: 
+%\beq
+%[P d] = F\times L = W. 
+%\eeq
+%This reads: 
+%\begin{quote}
+%	``The dimensions of $P \times d$ are force times length, which is equal to work."
+%\end{quote}
+%We note that dimensions are different from units in the same way that money is 
+%different from dollars.  
+%
+%When considering the dimensions of the variables and parameters in equation (\ref{50.2}), 
+%we see that the different variables and parameters have the following dimensions: 
+%\bea
+%\sigma &=& \frac{\mbox{force}}{\mbox{area}} = \frac{F}{L^2}  \\ 
+%E &=& \frac{\mbox{force}}{\mbox{area}} = \frac{F}{L^2}  \\ 
+%\ep &=& \mbox{dimensionless} = 1 \\ 
+%\beta &=& \mbox{dimensionless} = 1 
+%\eea
+
+
 
 \section{Exposing the structure of our formulation to make it easier to go to $3D$}
 
@@ -1099,14 +1184,6 @@ where
 \eea
 }
 \end{tcolorbox}
-
-
-
-
-
-
-
-
 
 
 
