@@ -8,6 +8,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{babel}
+\usepackage{hyperref}
 \usepackage{tcolorbox}
 
 %---------------------------------------------------------
@@ -27,6 +28,8 @@
 \def \bx{\mbox{\boldmath{$x$}}}
 \def \ep{\epsilon}
 \def \bep{\mbox{\boldmath{$\epsilon$}}}
+\def \be{\mbox{\boldmath{$e$}}}
+\def \bs{\mbox{\boldmath{$s$}}}
 \def \bsig{\mbox{\boldmath{$\sigma$}}}
 \def \barsig{\mbox{{$\overline\sigma$}}}
 \def \barep{\mbox{{$\overline{\ep}$}}}
@@ -1055,7 +1058,7 @@ such that:
 
 \section{Exposing the structure of our formulation to make it easier to go to $3D$}
 
-\subsection{Weakform}
+\subsection{Weak form}
 
 The nonlinear weak form (\ref{nlweak}) can be written: 
 \beq
@@ -1188,6 +1191,65 @@ where
 \end{tcolorbox}
 
 
+\subsection{A sample $3D$ constitutive equation} 
+
+The classical form of the linear elastic isotropic constititive equation in 
+$3D$ is: 
+\beq
+\ep_{ij} = \frac{1+\nu}{E} \sigma_{ij} 
+			- \frac{\nu}{E} \delta_{ij} \sigma_{kk}. 
+			\plabel{e-nu}
+\eeq
+When expressing stress in terms of strain, the Lam\' e parameters, 
+$\lambda, \mu$, are often used as material properties.  In terms of the
+Lam\' e parameters, we may write the stress-strain relation as: 
+\beq
+\sigma_{ij} = \lambda \delta_{ij} \ep_{kk} + 2\mu \ep_{ij}. 
+			\plabel{lam-mu}
+\eeq
+\begin{tcolorbox}[title= Exercise]{  
+	\begin{enumerate}
+		\item Look up relation between $E,\nu, \lambda, \mu\equiv G, K, M$ at
+			\href{https://en.wikipedia.org/wiki/Elastic_modulus}{label}
+			% \href{https://en.wikipedia.org/wiki/Elastic_modulus}{https://en.wikipedia.org/wiki/Elastic_modulus}
+		\item Use (\ref{lam-mu}) and (\ref{e-nu}) to derive 
+			the expression for $\mu$ in terms of $E$ and $\nu$, 
+			and also for $E$ in terms of $\lambda$ and $\mu$.  
+		\item Derive (\ref{deltaV}). 
+	\end{enumerate}
+	}
+\end{tcolorbox}
+
+In general, strain can be decomposed into two parts: volume change and shape 
+change.  For large deformation, that decomposition is a multiplicative 
+decomposition of the deformation gradient.  For small (linearized) 
+deformations, the decomposition simplifies to an additive decomposition.  
+First recall that for small strains, the volume change per unit volume 
+is: 
+\beq
+\frac{\Delta V}{V} \equiv \Delta = \ep_{kk}
+\plabel{deltaV}
+\eeq
+Now we introduce the deviatoric strain, $e_{ij}$, so that: 
+\beq
+\ep_{ij} = \frac{\Delta}{3} \delta_{ij} + e_{ij} . 
+\plabel{dev-def}
+\eeq
+In a similar way, we can introduce the deviatoric stress $s_{ij}$ and 
+pressure $p$, so that: 
+\bea
+\sigma_{ij} &=& -p \delta_{ij} + s_{ij} 
+ \\ 
+ p &=& - \frac{1}{3} \sigma_{kk} 
+\eea
+
+One way to think about why an isotropic material has two different material 
+properties is that it has one ``spring" constant associated with volume change, 
+and a different one associated with shape change.  Therefore: 
+\bea
+ p &=& -K \Delta \\ 
+ \bs &=& 2\mu \be
+\eea
 
 
 
