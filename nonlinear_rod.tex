@@ -15,7 +15,7 @@
 %  Toggle to label equations 
 %
 \def \plabel#1 {\label{#1} }
-\def \plabel#1 {\label{#1} \qquad{#1} }
+% \def \plabel#1 {\label{#1} \qquad{#1} }
 %
 %---------------------------------------------------------
 \def\beq{\begin{equation}}
@@ -1067,7 +1067,7 @@ The nonlinear weak form (\ref{nlweak}) can be written:
 \frac{dv}{dx} - 
 f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
-\plabel{nlweak}
+\plabel{nlweak2}
 \eeq
 or 
 \beq
@@ -1076,7 +1076,7 @@ or
 \frac{dv}{dx} - 
 f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
-\plabel{nlweak}
+\plabel{nlweak3}
 \eeq
 
 
@@ -1248,7 +1248,7 @@ properties is that it has one ``spring" constant associated with volume change,
 and a different one associated with shape change.  Therefore: 
 \bea
  p &=& -K \Delta \\ 
- \bs &=& 2\mu \be
+ \bs &=& 2\mu \be = 2G \be
 \eea
 
 
