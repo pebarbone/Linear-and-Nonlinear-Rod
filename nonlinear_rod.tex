@@ -8,6 +8,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{babel}
+\usepackage{hyperref}
 \usepackage{tcolorbox}
 
 %---------------------------------------------------------
@@ -27,7 +28,11 @@
 \def \bx{\mbox{\boldmath{$x$}}}
 \def \ep{\epsilon}
 \def \bep{\mbox{\boldmath{$\epsilon$}}}
+\def \be{\mbox{\boldmath{$e$}}}
+\def \bs{\mbox{\boldmath{$s$}}}
 \def \bsig{\mbox{\boldmath{$\sigma$}}}
+\def \barsig{\mbox{{$\overline\sigma$}}}
+\def \barep{\mbox{{$\overline{\ep}$}}}
 \def \sigo{\sigma_{o}}
 \def \pie{\Pi_{Elastic}}
 \def \pit{\Pi_{Total}}
@@ -504,6 +509,7 @@ Here we will explore an example in which we consider the material behavior of th
 {\em Constitutive relationship:}
 \beq
 \sigma = E \epsilon e^{\beta \epsilon}
+\plabel{50}
 \eeq
 \begin{tcolorbox}[title= Nonlinear Strong Form]
 Given $u_0$, $ \sigma_0 $, $E$, and $f(x)$, for $0<x<L$, find $u(x)$, $\epsilon(x)$,$\sigma(x)$ that satisfy:
@@ -966,9 +972,93 @@ Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}).
 
 
 
+
+\section{Scaling of stress and strain our $1D$ model problem}
+
+Recall equation (\ref{50}) that gives the stress in terms of the strain as:
+\beq
+\sigma = E \ep e^{\beta \ep}. 
+\plabel{50.2}
+\eeq
+
+\begin{tcolorbox}[title= Exercise]{
+		Show that the stress (\ref{50.2}) corresponds to the strain energy density (in $1D$): 
+		\beq 
+		W = \frac{E}{\beta^2}\left[ 1 + \exp(\beta\ep)(\beta\ep - 1) \right] 
+		\plabel{strainE}
+		\eeq
+		}
+\end{tcolorbox}
+
+%\begin{tcolorbox}[title= Exercise]{
+%		Show that the total potential energy for our $1D$ model problem is given by
+%		\beq 
+%		U[u(x)] = \int_0^L \frac{E}{\beta^2}\left[ 1 + \exp(\beta\frac{du}{dx})(\beta\frac{du}{dx} - 1) \right] \, dx  - \sigma_o u(L) 
+%		\plabel{totalE}
+%		\eeq
+%		}
+%\end{tcolorbox}
+%
+
+We note that equation (\ref{50.2}) can alternatively be written as
+\beq
+\frac{\sigma\beta}{E} =  (\beta\ep) e^{(\beta \ep)}. 
+\plabel{50.3}
+\eeq
+In equation (\ref{50.3}), we see that $\ep$ appears ONLY when multiplied by $\beta$.  Similarly, $\sigma$ appears 
+ONLY in the form on the left.  Also, this equation is non-dimensional, in that each group of parameters is 
+non-dimensional.  These observations motivate the introduction of two new variables, $\barsig$ and $\barep$ 
+such that: 
+\bea
+	\barsig &=& \barep e^{\barep} \plabel{50.5} \\ 
+	\mbox{where:} && \nonumber \\ 
+	\barsig &=& \frac{\sigma\beta}{E}  \\ 
+	\barep  &=& \beta\ep. 
+\eea
+
+\begin{tcolorbox}[title= Exercise]{
+		Create some examples and/or an argument that can be used 
+		to teach an undergraduate why equation (\ref{50.5}) 
+		can be used to think about stress and strain for {\em any} 
+		choice of $E$ and $\beta$.  
+		
+		Example questions: 
+		\begin{enumerate}
+			\item For example, how big does the $\ep$ need to be to see 
+		significant curvature in the stress-strain curve?  
+			\item How big is the stress at that strain level?  
+		\end{enumerate}
+		}
+\end{tcolorbox}
+
+
+%%%% YOU CAN IGNORE THESE BITS: 
+%A bit of notation.  We will here use square brackets to denote the dimensions of a quantity.  
+%For example, if $P$ is a force and $d$ is a distance, then we might write: 
+%\beq
+%[P d] = F\times L = W. 
+%\eeq
+%This reads: 
+%\begin{quote}
+%	``The dimensions of $P \times d$ are force times length, which is equal to work."
+%\end{quote}
+%We note that dimensions are different from units in the same way that money is 
+%different from dollars.  
+%
+%When considering the dimensions of the variables and parameters in equation (\ref{50.2}), 
+%we see that the different variables and parameters have the following dimensions: 
+%\bea
+%\sigma &=& \frac{\mbox{force}}{\mbox{area}} = \frac{F}{L^2}  \\ 
+%E &=& \frac{\mbox{force}}{\mbox{area}} = \frac{F}{L^2}  \\ 
+%\ep &=& \mbox{dimensionless} = 1 \\ 
+%\beta &=& \mbox{dimensionless} = 1 
+%\eea
+
+
+
 \section{Exposing the structure of our formulation to make it easier to go to $3D$}
 
-\subsection{Weakform}
+\subsection{Weak form}
 
 The nonlinear weak form (\ref{nlweak}) can be written: 
 \beq
@@ -977,7 +1067,7 @@ The nonlinear weak form (\ref{nlweak}) can be written:
 \frac{dv}{dx} - 
 f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
-\plabel{nlweak}
+\plabel{nlweak2}
 \eeq
 or 
 \beq
@@ -986,7 +1076,7 @@ or
 \frac{dv}{dx} - 
 f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
-\plabel{nlweak}
+\plabel{nlweak3}
 \eeq
 
 
@@ -1101,14 +1191,65 @@ where
 \end{tcolorbox}
 
 
+\subsection{A sample $3D$ constitutive equation} 
 
+The classical form of the linear elastic isotropic constititive equation in 
+$3D$ is: 
+\beq
+\ep_{ij} = \frac{1+\nu}{E} \sigma_{ij} 
+			- \frac{\nu}{E} \delta_{ij} \sigma_{kk}. 
+			\plabel{e-nu}
+\eeq
+When expressing stress in terms of strain, the Lam\' e parameters, 
+$\lambda, \mu$, are often used as material properties.  In terms of the
+Lam\' e parameters, we may write the stress-strain relation as: 
+\beq
+\sigma_{ij} = \lambda \delta_{ij} \ep_{kk} + 2\mu \ep_{ij}. 
+			\plabel{lam-mu}
+\eeq
+\begin{tcolorbox}[title= Exercise]{  
+	\begin{enumerate}
+		\item Look up relation between $E,\nu, \lambda, \mu\equiv G, K, M$ at
+			\href{https://en.wikipedia.org/wiki/Elastic_modulus}{label}
+			% \href{https://en.wikipedia.org/wiki/Elastic_modulus}{https://en.wikipedia.org/wiki/Elastic_modulus}
+		\item Use (\ref{lam-mu}) and (\ref{e-nu}) to derive 
+			the expression for $\mu$ in terms of $E$ and $\nu$, 
+			and also for $E$ in terms of $\lambda$ and $\mu$.  
+		\item Derive (\ref{deltaV}). 
+	\end{enumerate}
+	}
+\end{tcolorbox}
 
+In general, strain can be decomposed into two parts: volume change and shape 
+change.  For large deformation, that decomposition is a multiplicative 
+decomposition of the deformation gradient.  For small (linearized) 
+deformations, the decomposition simplifies to an additive decomposition.  
+First recall that for small strains, the volume change per unit volume 
+is: 
+\beq
+\frac{\Delta V}{V} \equiv \Delta = \ep_{kk}
+\plabel{deltaV}
+\eeq
+Now we introduce the deviatoric strain, $e_{ij}$, so that: 
+\beq
+\ep_{ij} = \frac{\Delta}{3} \delta_{ij} + e_{ij} . 
+\plabel{dev-def}
+\eeq
+In a similar way, we can introduce the deviatoric stress $s_{ij}$ and 
+pressure $p$, so that: 
+\bea
+\sigma_{ij} &=& -p \delta_{ij} + s_{ij} 
+ \\ 
+ p &=& - \frac{1}{3} \sigma_{kk} 
+\eea
 
-
-
-
-
-
+One way to think about why an isotropic material has two different material 
+properties is that it has one ``spring" constant associated with volume change, 
+and a different one associated with shape change.  Therefore: 
+\bea
+ p &=& -K \Delta \\ 
+ \bs &=& 2\mu \be = 2G \be
+\eea
 
 
 
