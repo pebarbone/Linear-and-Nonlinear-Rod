@@ -10,6 +10,7 @@
 \usepackage{babel}
 \usepackage{hyperref}
 \usepackage{tcolorbox}
+\usepackage{wrapfig} 
 
 %---------------------------------------------------------
 %  Toggle to label equations 
@@ -438,15 +439,11 @@ solution of Strong Form 2 also satisfies Weak Form for $\u \in \cS$.
 Can you identify where each of these eqns is used? 
 (\ref{12}) is subtle.
 \end{tcolorbox}
-
 Let's first express $\int_0^L(\ref{11})v(x)dx$ using ($\ref{11}$):
-
 \beq
 \int_0^L \left[ \frac{d}{dx} \left( E \frac{du}{dx} \right) v(x) + f(x)v(x) \right]dx = 0
 \eeq
-
 {\em Evaluate chain rule:}
-
 \bea
 \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) &=&
 \frac{d}{dx} \left( E \frac{du}{dx} \right) v(x) +
@@ -455,51 +452,39 @@ E \frac{du}{dx} \frac{dv}{dx} \\
 \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) -
 E \frac{du}{dx} \frac{dv}{dx}
 \eea
-
 \beq
 \int_0^L \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) - E \frac{du}{dx} \frac{dv}{dx} + fv(x) dx = 0
 \eeq
-
 {\em Evaluate the following integral:}
 \beq
 \int_0^L \frac{d}{dx} \left( E \frac{du}{dx} v(x) \right) = \left. \left( E \frac{du}{dx} v(x) \right) \right]_{x=0}^{x=L} = 
 \left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) - 
 \left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right)
 \eeq
-
 \beq
 \left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) - 
 \left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right) - 
 \int_0^L \left[ E \frac{du}{dx} \frac{dv}{dx} - fv(x) \right] dx = 0
 \eeq
-
 {\em The first term can be simplified using ($\ref{13}$):}
-
 \beq
 \left( \left. E \frac{du}{dx} \right]_{x=L} v(L) \right) = 
 \sigo \cdot v(L)
 \eeq
-
 {\em Our essential boundary condition is defined in ($\ref{12}$). This information helps us simplify the second term in (45) since $v(x)$ must be 0 at all points defined by ($\ref{12}$) $\therefore$ $v(0) = 0$ as articulated in (24)}
-
 \beq
 v(0) = 0 \therefore \left( \left. E \frac{du}{dx} \right]_{x=0} v(0) \right) = 0
 \eeq
-
 {\em Finally,}
-
 \beq
 \sigo \cdot v(L) - \int_0^L \left[ E \frac{du}{dx} \frac{dv}{dx} - fv(x) \right] dx = 0
 \eeq
-
 {\em Rewriting slightly, we can see the same form presented in ($\ref{weak}$):}
-
 \beq
 \int_0^L E \frac{du}{dx} \frac{dv}{dx} - 
 f(x) \cdot v(x) dx -
 \sigo \cdot v(L) = 0
 \eeq
-
 \section{A mixed weak form}
 \subsection{Derivation from Strong Form 1}
 \subsection{Derivation from a mixed variational principle}
@@ -588,9 +573,7 @@ F'(U^{(1)} + \left. \frac{dF}{dU} \right|_{U^{(1)}} \delta U = 0
 \beq 
 P \left( e^{\beta P/AE} -1 \right) + \frac{AE^*}{L} \delta U = 0
 \eeq 
-
 {\em where $E^* = E e^{\beta P/AE} \left( 1 + \frac{\beta P}{AE} \right)$. This result is analogous to the first (linear elastic) Newton iteration, with an "updated" modulus. This modulus ($E^*$) is representative of the nonlinear behavior of the material. In this case, the modulus is a function of the applied load and varies with the displacement (strain).}
-
 \beq 
 \delta U = \frac{-PL}{AE^*} \left( e^{\beta P/AE} - 1 \right)
 \eeq 
@@ -969,18 +952,13 @@ e^{\beta \frac{d u_n}{dx}}
 \begin{tcolorbox}[title= Exercise]
 Show that when $u_n = 0$, then (\ref{n26}) simplifies to (\ref{weak}). 
 \end{tcolorbox}
-
-
-
-
 \section{Scaling of stress and strain our $1D$ model problem}
-
+\subsection{Derivation of a scaled constitutive model}
 Recall equation (\ref{50}) that gives the stress in terms of the strain as:
 \beq
 \sigma = E \ep e^{\beta \ep}. 
 \plabel{50.2}
 \eeq
-
 \begin{tcolorbox}[title= Exercise]{
 		Show that the stress (\ref{50.2}) corresponds to the strain energy density (in $1D$): 
 		\beq 
@@ -989,7 +967,6 @@ Recall equation (\ref{50}) that gives the stress in terms of the strain as:
 		\eeq
 		}
 \end{tcolorbox}
-
 %\begin{tcolorbox}[title= Exercise]{
 %		Show that the total potential energy for our $1D$ model problem is given by
 %		\beq 
@@ -999,7 +976,6 @@ Recall equation (\ref{50}) that gives the stress in terms of the strain as:
 %		}
 %\end{tcolorbox}
 %
-
 We note that equation (\ref{50.2}) can alternatively be written as
 \beq
 \frac{\sigma\beta}{E} =  (\beta\ep) e^{(\beta \ep)}. 
@@ -1015,7 +991,6 @@ such that:
 	\barsig &=& \frac{\sigma\beta}{E}  \\ 
 	\barep  &=& \beta\ep. 
 \eea
-
 \begin{tcolorbox}[title= Exercise]{
 		Create some examples and/or an argument that can be used 
 		to teach an undergraduate why equation (\ref{50.5}) 
@@ -1027,9 +1002,68 @@ such that:
 			\item For example, how big does the $\ep$ need to be to see 
 		significant curvature in the stress-strain curve?  
 			\item How big is the stress at that strain level?  
+			\item Choose several values of $E$ and $\beta$. Think of each
+				pair $(E,\beta)$ as a different material.  Label them $1, 2, 3, \ldots, N_{mats}$.  
+			\item For each material, do a simulated experiment:  Compute a family of points $(\ep_i, \sigma_i)$ as if you were measuring the stress-strain curve for that material.  (Space the $\ep_i$ rather broadly so that you can see the lines between the markers.)
+			\item Graph all of your stress strain curves on a single graph. Use a different color for each material. 
+			\item For each material, compute the values of $(\barep_i, \barsig_i)$.   
+			\item Plot all the $(\barep_i,\barsig_i)$ points on a single graph (as a scatter plot - no lines).  Use a different color for each material.  
 		\end{enumerate}
 		}
 \end{tcolorbox}
+
+\subsection{Generalizing material behavior}
+
+The exercise presented in the text box above poses a series of questions that elucidate potential motivations for scaling  stress and strain for our example 1D problem and in general. By developing a relationship between scaled stress and strain that does not include $E$ or $\beta$, we can present the mechanical behavior that is representative of a family of materials (with particular $E$ and $\beta$). Depending on the scale of our strain ($\epsilon$), there are multiple key features of the relationship that become apparent, such as the strain at which we can expect nonlinear for any particular material (as a function of $E$ and $\beta$). 
+
+
+\begin{figure}
+	% make "hole" for figure: [10 text-lines tall]{on right}{this wide}
+    \begin{center}
+%%\vspace{-20mm}		% some adjustment up or down is possible.
+	\includegraphics[width= 8cm]{nonlinear-varyingmod.png}
+	\includegraphics[width= 8cm]{modulus-varyingbeta.png}
+	\caption{Family of normalized plots with varying modulus (left) and varying $\beta$ (right)}
+	\end{center}
+\end{figure}
+
+\medskip 
+
+Figure 1A clearly shows the strain range over which you see the linear and nonlinear portions of the material behavior for these materials. The blue line corresponding to $E=1000$ shows a smooth transition into the nonlinear mechanical behavior for our chosen strain range of $0<\epsilon<2$. The yellow line and dark blue lines (corresponding to $E = 10000$ and $E=100000$, respectively) see this transition occur over a smaller strain range. In Figure 1B, I explore varying the parameter $\beta$ for a constant modulus over the same strain range as in Figure 1A. By changing the magnitude of $\beta$, you can observe how different features are apparent for each curve. For example, the green line corresponding to $\beta=1$ has a clear linear region followed by the drop in stress at larger strains as expected with a negative value of $\beta$. The maroon line corresponding to $\beta=-5$ however shows a similar behavior but with these key features occurring over a shorter range of strain values.
+
+
+
+\begin{figure}
+	% make "hole" for figure: [10 text-lines tall]{on right}{this wide}
+    \begin{center}
+ %%   \vspace{-5mm}
+%%\vspace{-20mm}		% some adjustment up or down is possible.
+	\includegraphics[width= 8cm]{normalized-pos-beta.png}
+	\includegraphics[width= 8cm]{normalized-neg-beta.png}
+	\caption{Family of plots with varying modulus for positive $\beta$ (left) and negative $\beta$ (right)}
+	\end{center}
+\end{figure}
+
+\medskip
+
+At this point, we can pose the question: at what $\barep$ do we expect to see nonlinear behavior? Figure 3 shows a plot comparing the resolution of our overall mechanical behavior for various scales of $\beta$ for a consistent (normalized) strain range ($\barep$), as well as one that identifies the stress at which we can expect nonlinear behavior. The stress value can be determined for any defined Young's modulus and $\beta$. These graphs reinforce the ideas discussed in the previous paragraphs: (1) Scaling the stress and strain enables us to see key features of the mechanical behavior of materials that  the same overall mechanical behavior described by the defined constitutive relationship; (2) For arbitrary $E$ and $\beta$, adjusting the strain range plotted will show different features of interest; (3) The strain and stress values for any particular specific point of the plot (such as the $\barep$ at which nonlinear behavior occurs) can be computed for any arbitrary material in terms of its $E$ and $\beta$ (i.e. finding the $\epsilon$ at which this specific material with given modulus and nonlinearity can be expected to behave nonlinearly). 
+
+
+\begin{figure}
+	% make "hole" for figure: [10 text-lines tall]{on right}{this wide}
+    \begin{center}
+ %%   \vspace{-5mm}
+%%\vspace{-20mm}		% some adjustment up or down is possible.
+	\includegraphics[width= 12cm]{beta-scaling.jpg}
+	%\includegraphics[width= 8cm]{normalized-neg-beta.png}
+	\caption{Normalized stress/strain with increasing orders of magnitude for $\beta$}
+	\end{center}
+\end{figure}
+
+\medskip
+
+Figure 3 shows the data points for three stress/strain curves that have been normalized as described in (138). As expected, when plotting this relationship there is no dependency on $E$ or $\beta$ and therefore the curves are identical. We can see a more interesting effect, however, if our stress and strain fields are computed for a given $\beta$ and then the $\barsig$ and $\barep$ are calculated. Then we see that the \emph{resolution} of the plot is affected as function of $\beta$. More precisely, specific regions of our plot (as determined by the specified $\barep$) are more evident as a function of the prescribed $\beta$.
+
 
 
 %%%% YOU CAN IGNORE THESE BITS: 
@@ -1053,13 +1087,8 @@ such that:
 %\ep &=& \mbox{dimensionless} = 1 \\ 
 %\beta &=& \mbox{dimensionless} = 1 
 %\eea
-
-
-
 \section{Exposing the structure of our formulation to make it easier to go to $3D$}
-
 \subsection{Weak form}
-
 The nonlinear weak form (\ref{nlweak}) can be written: 
 \beq
 \int_0^L \left[
@@ -1078,11 +1107,7 @@ f(x) \cdot v(x)
 \right] dx - \sigo \cdot v(L) = 0
 \plabel{nlweak3}
 \eeq
-
-
-
 \subsection{Newton iteration:}
-
 Letting $u\leftarrow u + \delta u$: 
 \bea
 \int_0^L \left[
@@ -1134,10 +1159,7 @@ Letting $u\leftarrow u + \delta u$:
 \plabel{202}  \\ 
 &=& \mbox{tangent\ modulus}
 \eea
-
-
 \subsection{Extending to multi-dimensions}
-
 \begin{itemize}
 \item 
 $\int_0^L \, dx \leftarrow \int_V \, dV$. 
@@ -1158,11 +1180,7 @@ $ \frac{d \sigma}{d\epsilon} \leftarrow
 $u \approx u^h = \sum_{A} d_A N_A(x)$ becomes 
 $u_i \approx u_i^h = \sum_{A} d_{iA} N_A(x)$. 
 \end{itemize}
-
-
 \subsection{Weak form in multiple dimensions} 
-
-
 \begin{tcolorbox}[title= Nonlinear Weak Form]{
 % \fbox{
 Given $u_{oi}$, $T_i$, the function $\sigma(\epsilon)$,  and $f_i(x)$,  
@@ -1189,10 +1207,7 @@ where
 \eea
 }
 \end{tcolorbox}
-
-
 \subsection{A sample $3D$ constitutive equation} 
-
 The classical form of the linear elastic isotropic constititive equation in 
 $3D$ is: 
 \beq
@@ -1242,7 +1257,6 @@ pressure $p$, so that:
  \\ 
  p &=& - \frac{1}{3} \sigma_{kk} 
 \eea
-
 One way to think about why an isotropic material has two different material 
 properties is that it has one ``spring" constant associated with volume change, 
 and a different one associated with shape change.  Therefore: 
@@ -1250,8 +1264,4 @@ and a different one associated with shape change.  Therefore:
  p &=& -K \Delta \\ 
  \bs &=& 2\mu \be = 2G \be
 \eea
-
-
-
-
 \end{document}
